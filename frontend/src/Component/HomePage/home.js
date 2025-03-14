@@ -4,7 +4,7 @@ import NavBar1 from '../NavBar1/nav1';
 
 const home = () => {
   return (
-    
+
     <div>
         <div className="home-container">
       {/* Header */}
