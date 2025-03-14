@@ -10,6 +10,7 @@ const App = () => {
     <div>
       <React.Fragment>
         <Routes>
+        <Route path="/" element={<HomePage />} /> {/* Default route */}
           <Route path="/home" element={<HomePage/>} />
           <Route path="/signUp" element={<SignUp/>} />
           <Route path="/signIn" element={<SignIn/>} />
