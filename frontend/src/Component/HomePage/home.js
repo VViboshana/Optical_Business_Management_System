@@ -17,7 +17,7 @@ const home = () => {
 
       {/* Main Content */}
       <main className="main-content">
-        <h1>Welcome to Our Website</h1>
+        <h1>Welcome to Clear Vision</h1>
         <p>This is the home page.</p>
       </main>
 
