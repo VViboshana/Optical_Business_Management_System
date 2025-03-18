@@ -9,7 +9,7 @@ const GlassCard = ({glass}) => {
   <div
     className="flex flex-col sm:flex-row sm:items-center sm:h-72  sm:justify-center gap-4"
   >
-    <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
+    <div className="sm:h-36 sm:flex-shrink-0 border rounded-md">
       <Link to={`/glasses/${glass._id}`}>
         <img
           src={getImgUrl(glass?.coverImage)}
