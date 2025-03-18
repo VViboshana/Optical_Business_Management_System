@@ -1,0 +1,202 @@
+[
+    {
+      "_id": 1,
+      "title": "Titan Classic Frame",
+      "description": "Elegant professional glasses with a sleek metal frame.",
+      "category": "Professional",
+      "trending": true,
+      "coverImage": "glasses-1.png",
+      "oldPrice": 99.99,
+      "newPrice": 79.99
+    },
+    {
+      "_id": 2,
+      "title": "Blue Shield Office Glasses",
+      "description": "Stylish blue light blocking glasses for office workers.",
+      "category": "Professional",
+      "trending": false,
+      "coverImage": "glasses-2.png",
+      "oldPrice": 89.99,
+      "newPrice": 69.99
+    },
+    {
+      "_id": 3,
+      "title": "Smart Vision Pro",
+      "description": "High-quality professional glasses with anti-glare coating.",
+      "category": "Professional",
+      "trending": true,
+      "coverImage": "glasses-3.png",
+      "oldPrice": 119.99,
+      "newPrice": 89.99
+    },
+    {
+      "_id": 4,
+      "title": "Urban Style Shades",
+      "description": "Trendy casual glasses for everyday wear.",
+      "category": "Casual",
+      "trending": false,
+      "coverImage": "glasses-4.png",
+      "oldPrice": 49.99,
+      "newPrice": 39.99
+    },
+    {
+      "_id": 5,
+      "title": "Retro Round Glasses",
+      "description": "Vintage-style round frame glasses for a classic look.",
+      "category": "Casual",
+      "trending": true,
+      "coverImage": "glasses-5.png",
+      "oldPrice": 59.99,
+      "newPrice": 45.99
+    },
+    {
+      "_id": 6,
+      "title": "Sleek Night Vision",
+      "description": "Casual glasses with night vision enhancement.",
+      "category": "Casual",
+      "trending": false,
+      "coverImage": "glasses-6.png",
+      "oldPrice": 69.99,
+      "newPrice": 54.99
+    },
+    {
+      "_id": 7,
+      "title": "Cyclone Sports Shades",
+      "description": "Durable sports glasses designed for outdoor activities.",
+      "category": "Sports & Adventure",
+      "trending": true,
+      "coverImage": "glasses-7.png",
+      "oldPrice": 79.99,
+      "newPrice": 59.99
+    },
+    {
+      "_id": 8,
+      "title": "Pro Cyclist Goggles",
+      "description": "Lightweight glasses for cycling and outdoor adventures.",
+      "category": "Sports & Adventure",
+      "trending": false,
+      "coverImage": "glasses-8.png",
+      "oldPrice": 99.99,
+      "newPrice": 74.99
+    },
+    {
+      "_id": 9,
+      "title": "Extreme UV Protection Shades",
+      "description": "Advanced sunglasses with maximum UV protection.",
+      "category": "Sports & Adventure",
+      "trending": true,
+      "coverImage": "glasses-9.png",
+      "oldPrice": 109.99,
+      "newPrice": 84.99
+    },
+    {
+      "_id": 10,
+      "title": "Adventure Explorer Glasses",
+      "description": "Designed for hikers and adventure enthusiasts.",
+      "category": "Sports & Adventure",
+      "trending": false,
+      "coverImage": "glasses-10.png",
+      "oldPrice": 89.99,
+      "newPrice": 69.99
+    },
+    {
+      "_id": 11,
+      "title": "Gold Luxe Designer Shades",
+      "description": "Luxury sunglasses with gold-plated frames.",
+      "category": "Luxury & Fashion",
+      "trending": true,
+      "coverImage": "glasses-11.png",
+      "oldPrice": 199.99,
+      "newPrice": 149.99
+    },
+    {
+      "_id": 12,
+      "title": "Diamond Vision Spectacles",
+      "description": "High-end luxury glasses with diamond accents.",
+      "category": "Luxury & Fashion",
+      "trending": true,
+      "coverImage": "glasses-12.png",
+      "oldPrice": 299.99,
+      "newPrice": 249.99
+    },
+    {
+      "_id": 13,
+      "title": "Chic Cat Eye Glasses",
+      "description": "Stylish cat-eye glasses for a bold fashion statement.",
+      "category": "Luxury & Fashion",
+      "trending": false,
+      "coverImage": "glasses-13.png",
+      "oldPrice": 149.99,
+      "newPrice": 119.99
+    },
+    {
+      "_id": 14,
+      "title": "Elegant Rose Gold Frames",
+      "description": "Sophisticated glasses with a rose gold finish.",
+      "category": "Luxury & Fashion",
+      "trending": true,
+      "coverImage": "glasses-14.png",
+      "oldPrice": 179.99,
+      "newPrice": 139.99
+    },
+    {
+      "_id": 15,
+      "title": "Royal Titanium Glasses",
+      "description": "Premium titanium-framed glasses for elegance and durability.",
+      "category": "Luxury & Fashion",
+      "trending": false,
+      "coverImage": "glasses-15.png",
+      "oldPrice": 229.99,
+      "newPrice": 179.99
+    },
+    {
+      "_id": 16,
+      "title": "Stealth Vision Glasses",
+      "description": "Sleek, lightweight glasses with a modern aesthetic.",
+      "category": "Professional",
+      "trending": true,
+      "coverImage": "glasses-16.png",
+      "oldPrice": 129.99,
+      "newPrice": 99.99
+    },
+    {
+      "_id": 17,
+      "title": "Casual Retro Frames",
+      "description": "Classic retro glasses with a timeless design.",
+      "category": "Casual",
+      "trending": false,
+      "coverImage": "glasses-17.png",
+      "oldPrice": 54.99,
+      "newPrice": 39.99
+    },
+    {
+      "_id": 18,
+      "title": "Pilot Aviator Shades",
+      "description": "Iconic aviator sunglasses for a stylish look.",
+      "category": "Luxury & Fashion",
+      "trending": true,
+      "coverImage": "glasses-18.png",
+      "oldPrice": 189.99,
+      "newPrice": 149.99
+    },
+    {
+      "_id": 19,
+      "title": "Hiking Polarized Glasses",
+      "description": "Polarized glasses built for outdoor adventures.",
+      "category": "Sports & Adventure",
+      "trending": false,
+      "coverImage": "glasses-19.png",
+      "oldPrice": 129.99,
+      "newPrice": 99.99
+    },
+    {
+      "_id": 20,
+      "title": "Classic Wood Frame Glasses",
+      "description": "Handcrafted wooden glasses for a natural look.",
+      "category": "Casual",
+      "trending": true,
+      "coverImage": "glasses-20.png",
+      "oldPrice": 79.99,
+      "newPrice": 59.99
+    }
+  ]
