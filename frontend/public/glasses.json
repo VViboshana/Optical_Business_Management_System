@@ -2,7 +2,7 @@
     {
       "_id": 1,
       "title": "Titan Classic Frame",
-      "description": "Elegant professional glasses",
+      "description": "Elegant professional glasses with a sleek metal frame.",
       "category": "Professional",
       "trending": true,
       "coverImage": "glasses-1.png",
@@ -11,8 +11,8 @@
     },
     {
       "_id": 2,
-      "title": "Blue Shield Office",
-      "description": "Stylish blue light blocking glasses.",
+      "title": "Blue Shield Office Glasses",
+      "description": "Stylish blue light blocking glasses for office workers.",
       "category": "Professional",
       "trending": false,
       "coverImage": "glasses-2.png",
@@ -22,7 +22,7 @@
     {
       "_id": 3,
       "title": "Smart Vision Pro",
-      "description": "High-quality professional glasses.",
+      "description": "High-quality professional glasses with anti-glare coating.",
       "category": "Professional",
       "trending": true,
       "coverImage": "glasses-3.png",
@@ -32,7 +32,7 @@
     {
       "_id": 4,
       "title": "Urban Style Shades",
-      "description": "Trendy casual glasses.",
+      "description": "Trendy casual glasses for everyday wear.",
       "category": "Casual",
       "trending": false,
       "coverImage": "glasses-4.png",
@@ -41,8 +41,8 @@
     },
     {
       "_id": 5,
-      "title": "Retro Round",
-      "description": "Vintage-style round frame glasses.",
+      "title": "Retro Round Glasses",
+      "description": "Vintage-style round frame glasses for a classic look.",
       "category": "Casual",
       "trending": true,
       "coverImage": "glasses-5.png",
@@ -81,7 +81,7 @@
     },
     {
       "_id": 9,
-      "title": "Extreme UV rotectio",
+      "title": "Extreme UV Protection Shades",
       "description": "Advanced sunglasses with maximum UV protection.",
       "category": "Sports & Adventure",
       "trending": true,
@@ -91,7 +91,7 @@
     },
     {
       "_id": 10,
-      "title": "Adventure Explorer",
+      "title": "Adventure Explorer Glasses",
       "description": "Designed for hikers and adventure enthusiasts.",
       "category": "Sports & Adventure",
       "trending": false,
@@ -101,7 +101,7 @@
     },
     {
       "_id": 11,
-      "title": "Gold Luxe Shades",
+      "title": "Gold Luxe Designer Shades",
       "description": "Luxury sunglasses with gold-plated frames.",
       "category": "Luxury & Fashion",
       "trending": true,
@@ -111,7 +111,7 @@
     },
     {
       "_id": 12,
-      "title": "Diamond Vision",
+      "title": "Diamond Vision Spectacles",
       "description": "High-end luxury glasses with diamond accents.",
       "category": "Luxury & Fashion",
       "trending": true,
@@ -121,8 +121,8 @@
     },
     {
       "_id": 13,
-      "title": "Chic Cat Eye",
-      "description": "Stylish cat-eye glasses with diamond accents.",
+      "title": "Chic Cat Eye Glasses",
+      "description": "Stylish cat-eye glasses for a bold fashion statement.",
       "category": "Luxury & Fashion",
       "trending": false,
       "coverImage": "glasses-13.png",
@@ -131,7 +131,7 @@
     },
     {
       "_id": 14,
-      "title": "Elegant Rose Gold",
+      "title": "Elegant Rose Gold Frames",
       "description": "Sophisticated glasses with a rose gold finish.",
       "category": "Luxury & Fashion",
       "trending": true,
@@ -141,8 +141,8 @@
     },
     {
       "_id": 15,
-      "title": "Royal Titanium",
-      "description": "Premium titanium-framed glasses.",
+      "title": "Royal Titanium Glasses",
+      "description": "Premium titanium-framed glasses for elegance and durability.",
       "category": "Luxury & Fashion",
       "trending": false,
       "coverImage": "glasses-15.png",
@@ -151,7 +151,7 @@
     },
     {
       "_id": 16,
-      "title": "Stealth Vision",
+      "title": "Stealth Vision Glasses",
       "description": "Sleek, lightweight glasses with a modern aesthetic.",
       "category": "Professional",
       "trending": true,
@@ -181,7 +181,7 @@
     },
     {
       "_id": 19,
-      "title": "Hiking Polarized",
+      "title": "Hiking Polarized Glasses",
       "description": "Polarized glasses built for outdoor adventures.",
       "category": "Sports & Adventure",
       "trending": false,
@@ -191,7 +191,7 @@
     },
     {
       "_id": 20,
-      "title": "Classic Wood",
+      "title": "Classic Wood Frame Glasses",
       "description": "Handcrafted wooden glasses for a natural look.",
       "category": "Casual",
       "trending": true,
