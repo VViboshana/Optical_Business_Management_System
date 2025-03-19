@@ -7,7 +7,7 @@ import { Navigation, Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import 'swiper/css/navigation';
+import "swiper/css/navigation";
 
 const categories = [
   "Choose a category",
@@ -54,7 +54,7 @@ const TopSellers = () => {
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
-          navigation={true}
+        navigation={true}
         breakpoints={{
           640: {
             slidesPerView: 1,
@@ -71,28 +71,18 @@ const TopSellers = () => {
           1180: {
             slidesPerView: 3,
             spaceBetween: 50,
-          }
+          },
         }}
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-
-{
-      filteredGlasses.length>0 && filteredGlasses.map((glass, index) => (
-        
-        <SwiperSlide key={index}>
-            <GlassCard glass={glass} />
+        {filteredGlasses.length > 0 &&
+          filteredGlasses.map((glass, index) => (
+            <SwiperSlide key={index}>
+              <GlassCard glass={glass} />
             </SwiperSlide>
-
-        
-      ))
-      }
-
-        
-
+          ))}
       </Swiper>
-
-      
     </div>
   );
 };
