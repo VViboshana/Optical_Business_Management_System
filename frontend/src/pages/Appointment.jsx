@@ -10,6 +10,7 @@ const Appointment = () => {
   const { doctors, currencySymbol } = useContext(AppContext)
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
+
   const [docInfo, setDocInfo] = useState(null)
   const [docSlots, setDocSlots] = useState([])
   const [slotIndex, setSlotIndex] = useState(0)
@@ -57,6 +58,10 @@ const Appointment = () => {
       setDocSlots(prev => [...prev, timeSlots])
     }
   }
+
+
+const isBookingDisabled = !slotIndex || !slotTime;  // Disable if no date or time is selected
+
 
   useEffect(() => {
     fetchDocInfo()
@@ -115,11 +120,24 @@ const Appointment = () => {
             </p>
           ))}
         </div>
+        
+
         <button 
-          onClick={() => navigate('/patient-details', { state: { doctorId: docId } })}  // Pass doctorId via state
-          className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>
+          onClick={() => {
+            if (!slotIndex || !slotTime) {
+              alert('Please select both a date and time slot.');
+              return;
+            }
+            navigate('/patient-details', { state: { doctorId: docId, date: docSlots[slotIndex][0].datetime, time: slotTime } });
+          }}  
+          className={`bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6 ${isBookingDisabled ? 'cursor-not-allowed opacity-50' : ''}`}
+          disabled={isBookingDisabled}
+        >
           Book Appointment
         </button>
+
+
+
       </div>
     </div>
   )
