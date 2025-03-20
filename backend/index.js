@@ -1,10 +1,22 @@
 const express = require('express')
 const app = express()
+const cors = require("cors");
+
 const mongoose = require('mongoose');
+
 const port = process.env.PORT || 5000;
 require('dotenv').config()
 
+//middleware
+app.use(express.json());
+app.use(cors({
+    origin:['http://localhost:5181/'],
+    credentials:true
+}))
 
+//routes
+const glassRoutes = require('./src/glasses/glass.route')
+app.use("/api/glasses",glassRoutes)
 
 async function main() {
     await mongoose.connect(process.env.DB_URL);

@@ -30,6 +30,6 @@ const glassSchema = new mongoose.Schema({
     timestamps:true
   });
 
-  const Glass = mongoose.model('Glass',glassSchema);
+  const Glass = mongoose.model("Glass",glassSchema);
 
-  module.export = Glass;
+  module.exports = Glass;
