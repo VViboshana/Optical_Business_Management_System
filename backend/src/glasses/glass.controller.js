@@ -1,6 +1,7 @@
 //Kumod
 const Glass = require("./glass.model");
 
+//post glass
 const postAGlass = async(req,res)=>{
     try {
         const newGlass = await Glass({...req.body}); 
@@ -23,6 +24,7 @@ const getAllGlasses = async(req,res)=>{
     }
 }
 
+//get single glass
 const getSingleGlass = async(req,res)=>{
     try {
         const {id} = req.params;
@@ -37,8 +39,27 @@ const getSingleGlass = async(req,res)=>{
     }
 }
 
+//update glass data
+const UpdatedGlass = async(req,res)=>{
+    try {
+        const{id} = req.params;
+        const UpdatedGlass = await Glass.findByIdAndUpdate(id, req.body,{new:true});
+        if(!UpdatedGlass){
+            res.status(404).send({message:"Glass is not found!"})
+        }
+        res.status(200).send({
+            message:"Glass Updated successfully",
+            glass: UpdatedGlass
+        })
+    } catch (error) {
+        console.error("Error Updating Glass",error);
+        res.status(500).send({message:"Failed to update glass"})
+    }
+}
+
 module.exports = {
     postAGlass,
     getAllGlasses,
-    getSingleGlass
+    getSingleGlass,
+    UpdatedGlass
 }

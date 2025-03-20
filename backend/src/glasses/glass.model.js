@@ -34,7 +34,7 @@ const glassSchema = new mongoose.Schema({
         default:Date.now,
     }
   },{
-    timestamps:true
+    timestamps: true,
   });
 
   const Glass = mongoose.model("Glass",glassSchema);
