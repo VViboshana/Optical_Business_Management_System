@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets'
 
 const Appointment = () => {
+  const navigate = useNavigate()
   const { docId } = useParams()
   const { doctors, currencySymbol } = useContext(AppContext)
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
@@ -66,10 +68,6 @@ const Appointment = () => {
     }
   }, [docInfo])
 
-  useEffect(() => {
-    console.log(docSlots)
-  }, [docSlots])
-
   return docInfo && (
     <div>
       <div className='flex flex-col sm:flex-row gap-4'>
@@ -117,7 +115,11 @@ const Appointment = () => {
             </p>
           ))}
         </div>
-        <button className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>Book Appointment</button>
+        <button 
+          onClick={() => navigate('/patient-details', { state: { doctorId: docId } })}  // Pass doctorId via state
+          className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>
+          Book Appointment
+        </button>
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ import MyProfile from './pages/MyProfile'
 import MyAppointments from './pages/MyAppointments'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
-
+import PatientDetailsForm from './pages/PatientDetailsForm'
 
 
 
@@ -18,6 +18,8 @@ const App = () => {
       <Routes>
         <Route path = '/' element={<Home />} />
         <Route path = '/doctors' element={<Doctors />} />
+
+        <Route path = '/patient-details' element={<PatientDetailsForm />} />
 
          
         <Route path = '/login' element={<Login />} />

@@ -13,7 +13,8 @@ const doctorSchema=new mongoose.Schema({
     serviceCharge:{type:Number,required:true},
     address:{type:Object,required:true},
     date:{type:Number,required:true},
-    slots_booked:{type:Object,default:{} },
+    
+    slotsBooked: { type: Map, of: Boolean, default: {} },  // to track booked slots
 
 },{minimize:false})
 
