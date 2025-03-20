@@ -1,3 +1,4 @@
+//Kumod
 const mongoose = require('mongoose');
 const glassSchema = new mongoose.Schema({
     title: {
@@ -20,8 +21,14 @@ const glassSchema = new mongoose.Schema({
         type:String,
         required:true,
     } ,
-    oldPrice:Number,
-    newPrice:Number,
+    oldPrice:{
+        type:Number,
+        required:true
+    },
+    newPrice:{
+        type:Number,
+        required:true
+    },
     createdAt:{
         type:Date,
         default:Date.now,
