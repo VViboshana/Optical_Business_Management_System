@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import connectDB from './config.js'; 
-import adminRouter from './routes/adminRoute.js';
 import router from './routes/appointmentRoute.js';  
+import doctorRoutes from './routes/doctorRoute.js'
 
 
 // Initialize Express
@@ -17,8 +17,9 @@ app.use(cors());
 connectDB();
 
 // API Routes
-app.use('/api/admin', adminRouter);
 app.use('/api', router); 
+app.use('/api', doctorRoutes);
+
 
 
 // Test API

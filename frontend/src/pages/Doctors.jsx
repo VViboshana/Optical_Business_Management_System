@@ -1,16 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
 
 const Doctors = () => {
   const [filterDoc, setFilterDoc] = useState([]);
   const navigate = useNavigate();
-  const { doctors } = useContext(AppContext);
 
   useEffect(() => {
-    // Set all doctors in filterDoc
-    setFilterDoc(doctors);
-  }, [doctors]);
+    // Fetch doctors from backend
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/'); // Update with your backend URL
+        const data = await response.json();
+        setFilterDoc(data);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   return (
     <div>
