@@ -21,48 +21,54 @@ const Appointment = () => {
     setDocInfo(docInfo)
   }
 
-  const getAvailableSlots=async () => {
-
-    setDocSlots([])
-    //getting current date
-    let today=new Date()
-
-    for(let i=0; i<7; i++){
-      //getting date with index
-      let currentDate=new Date(today)
-      currentDate.setDate(today.getDate()+i)
-
-      //set end time of the date with index
-      let endTime=new Date()
-      endTime.setDate(today.getDate()+i)
-      endTime.setHours(21,0,0,0)
-
-      //setting hours
-      if(today.getDate()===currentDate.getDate()){
-        currentDate.setHours(currentDate.getHours)
-        currentDate.setMinutes(currentDate.getMinutes()>30 ? 30 : 0)
-      }else{
-        currentDate.setHours(0)
-        currentDate.setMinutes(0)
+  const getAvailableSlots = async () => {
+    setDocSlots([]);
+    let today = new Date();
+  
+    for (let i = 0; i < 7; i++) {
+      let currentDate = new Date(today);
+      currentDate.setDate(today.getDate() + i);
+  
+      let startTime = new Date(currentDate);
+      let endTime = new Date(currentDate);
+  
+      if (today.getDate() === currentDate.getDate()) {
+        // If it's today, start from the next available 30-minute slot
+        let minutes = today.getMinutes();
+        let nextMinutes = minutes < 30 ? 30 : 0; // Round to next half-hour mark
+        let nextHour = minutes < 30 ? today.getHours() : today.getHours() + 1;
+  
+        startTime.setHours(nextHour, nextMinutes, 0, 0);
+      } else {
+        // If it's a future date, start from 7 AM
+        startTime.setHours(7, 0, 0, 0);
       }
-
-      let timeSlots=[]
-      while(currentDate<endTime){
-        let formattedTime=currentDate.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit'})
-
-        //add slot to array
-        timeSlots.push({
-          datetime: new Date(currentDate),
-          time:formattedTime
-        })
-
-        //increment time by 30 minutes
-        currentDate.setMinutes(currentDate.getMinutes()+30)
+  
+      // Doctors are available until 5 PM (17:00)
+      endTime.setHours(17, 0, 0, 0);
+  
+      let timeSlots = [];
+  
+      while (startTime < endTime) {
+        let formattedTime = startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  
+        // Ensure slot is not in the past
+        if (startTime > today) {
+          timeSlots.push({
+            datetime: new Date(startTime),
+            time: formattedTime,
+          });
+        }
+  
+        // Increment time by 30 minutes
+        startTime.setMinutes(startTime.getMinutes() + 30);
       }
-
-      setDocSlots(prev=>([...prev,timeSlots]))
+  
+      setDocSlots((prev) => [...prev, timeSlots]);
     }
-  }
+  };
+  
+  
 
 
   useEffect(()=>{
