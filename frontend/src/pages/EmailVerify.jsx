@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { AppContent } from "../context/AppContext";
 import axios from "axios";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const EmailVerify = () => {
 
   axios.defaults.withCredentials =true;
-  const {backendUrl, setIsLoggedin, userData, getUserData} = useContext(AppContent)
+  const {backendUrl, setIsLoggedin, isLoggedin, userData, getUserData} = useContext(AppContent)
 
   const navigate = useNavigate()
 
@@ -20,7 +20,6 @@ const EmailVerify = () => {
     }
   }
   // delete number using backspace
-
   const handleKeyDown = (e, index) => {
     if(e.key === 'Backspace' && e.target.value === '' && index > 0){
       inputRefs.current[index - 1].focus();
@@ -28,7 +27,6 @@ const EmailVerify = () => {
   }
 
   // copy past fetcur
-
   const handlePaste = (e, index) => {
     const paste = e.clipboardData.getData('text')
     const pasteArray = paste.split('');
@@ -61,6 +59,10 @@ const EmailVerify = () => {
       toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    isLoggedin && userData && userData.isAccountVerified && navigate('/')
+  },[isLoggedin, userData])
 
   return (
     <div
