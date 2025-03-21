@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
   name: {
@@ -21,5 +21,5 @@ const appointmentSchema = new mongoose.Schema({
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 
-export { Appointment };
+module.exports = Appointment;
 //

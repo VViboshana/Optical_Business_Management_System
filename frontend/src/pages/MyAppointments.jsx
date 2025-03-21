@@ -1,38 +1,53 @@
-import React, { useContext } from 'react'
-import {AppContext} from '../context/AppContext'
+import React, { useState, useEffect } from 'react';
+
 const MyAppointments = () => {
+  const [appointments, setAppointments] = useState([]);
 
-  const {doctors}=useContext(AppContext)
+  useEffect(() => {
+    // Fetch appointments from the backend
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/appointments');
+        const data = await response.json();
+        setAppointments(data); // Store the data in state
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+
+    fetchAppointments();
+  }, []); // Empty dependency array ensures this runs once when the component mounts
+
   return (
-    <div>
-      <p>My Appointments</p>
-      <div>
-        {doctors.slice(0,2).map((item,index)=>(
-          <div key={index}>
-            <div>
-              <img src={item.image} alt="" />
-            </div>
+    <div className="p-6">
+      <h2 className="text-2xl font-semibold mb-4">My Appointments</h2>
 
-            <div>
-              <p>{item.name}</p>
-              <p>{item.speciality}</p>
-              <p>Address</p>
-              <p>{item.address.line1}</p>
-              <p>{item.address.line2}</p>
-              <p><span>Date & Time:</span>25,July,2024 | 8:30 PM</p>
-            </div>
+      {appointments.length === 0 ? (
+        <p>No appointments found.</p> // Show this message if there are no appointments
+      ) : (
+        <div className="space-y-4">
+          {appointments.map((appointment) => (
+            <div key={appointment._id} className="border p-4 rounded-lg shadow-md">
+              <p><strong>Name:</strong> {appointment.name}</p>
+              <p><strong>Email:</strong> {appointment.email}</p>
+              <p><strong>Phone:</strong> {appointment.phone}</p>
+              <p><strong>Address:</strong> {appointment.address}</p>
+              <p><strong>Booked At:</strong> {new Date(appointment.createdAt).toLocaleString()}</p>
 
-            <div></div>
-
-            <div className='flex flex-col gap-2 justify-end' >
-              <button className='text-sm text-stone-500 text-corner sm:min-w-48 py-2 border rounded' >Pay online</button>
-              <button className='text-sm text-stone-500 text-corner sm:min-w-48 py-2 border rounded' >cancel appointment</button>
+              <div className="mt-4">
+                <button className="bg-green-500 text-white px-4 py-2 rounded-md">
+                  Pay Online
+                </button>
+                <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-4">
+                  Cancel Appointment
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default MyAppointments
+export default MyAppointments;

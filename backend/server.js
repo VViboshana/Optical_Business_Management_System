@@ -3,7 +3,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import connectDB from './config.js'; 
 import router from './routes/appointmentRoute.js';  
-import doctorRoutes from './routes/doctorRoute.js'
+import doctorRoutes from './routes/doctorRoute.js';
+import appointmentRoutes from './routes/appointmentRoute.js';
 
 
 // Initialize Express
@@ -19,6 +20,7 @@ connectDB();
 // API Routes
 app.use('/api', router); 
 app.use('/api', doctorRoutes);
+app.use('/api',appointmentRoutes);
 
 
 // Test API
