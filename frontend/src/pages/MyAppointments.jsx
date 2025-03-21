@@ -37,9 +37,7 @@ const MyAppointments = () => {
               <p><strong>Booked At:</strong> {new Date(appointment.createdAt).toLocaleString()}</p>
 
               <div className="mt-4">
-                <button className="bg-green-500 text-white px-4 py-2 rounded-md">
-                  Pay Online
-                </button>
+                
                 <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-4">
                   Cancel Appointment
                 </button>
