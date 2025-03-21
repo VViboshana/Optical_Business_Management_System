@@ -15,14 +15,17 @@ app.use(cors({
 }))
 
 //routes
-const glassRoutes = require('./src/glasses/glass.route')
+const glassRoutes = require('./routes/glass.route')
+const adminRoutes = require('./stats/admin.stats')
+
 app.use("/api/glasses",glassRoutes)
+app.use("/api/admin",adminRoutes)
 
 async function main() {
     await mongoose.connect(process.env.DB_URL);
     //routes
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Optical Shop server in online!')
   })
   }
 

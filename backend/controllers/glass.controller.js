@@ -1,5 +1,5 @@
 //Kumod
-const Glass = require("./glass.model");
+const Glass = require("../models/glass.model");
 
 //post glass
 const postAGlass = async(req,res)=>{
