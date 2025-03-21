@@ -36,7 +36,7 @@ const glassesApi = createApi({
         }),
         updateGlass:builder.mutation({
             query:({id,...rest})=>({
-                url:`/edit/${id}`,
+                url:`/api/glasses/edit/${id}`,
                 method:"PUT",
                 body:rest,
                 headers:{
