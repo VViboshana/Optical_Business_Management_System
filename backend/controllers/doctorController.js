@@ -40,10 +40,28 @@ const addDoctor = async (req, res) => {
       res.status(500).send({ message: "Failed to update doctor" });
     }
   };
+
+  // Get doctor by ID
+const getDoctorById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doctor = await Doctor.findById(id);
+    
+    if (!doctor) {
+      return res.status(404).send({ message: "Doctor not found!" });
+    }
+    
+    res.status(200).send(doctor);
+  } catch (error) {
+    console.error("Error fetching doctor by ID", error);
+    res.status(500).send({ message: "Failed to fetch doctor" });
+  }
+};
   
   module.exports = {
       addDoctor,
     getAllDoctors,
-    updateDoctor
+    updateDoctor,
+    getDoctorById
   };
-  
+  //

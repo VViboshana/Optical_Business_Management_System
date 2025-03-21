@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const Doctors = () => {
   const [filterDoc, setFilterDoc] = useState([]);
   const navigate = useNavigate();
+  
+
+  
 
   useEffect(() => {
     // Fetch doctors from backend
@@ -26,19 +29,19 @@ const Doctors = () => {
       
       <div className='w-full grid grid-cols-auto gap-4 gap-y-6'>
         {
-          filterDoc.map((item) => (
+          filterDoc.map((docId) => (
             <div
-              onClick={() => navigate(`/appointment/${item._id}`)}
+              onClick={() => navigate(`/appointment/${docId._id}`)}
               className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'
-              key={item._id}
+              key={docId._id}
             >
-              <img className='bg-gray-200' src={item.image} alt={item.name} />
+              <img className='bg-gray-200' src={docId.image} alt={docId.name} />
               <div className='p-4'>
                 <div className='flex items-center gap-2 text-sm text-center text-green-500'>
                   <p className='w-2 h-2 bg-green-500 rounded-full'></p><p>Available</p>
                 </div>
-                <p className='text-gray-900 text-lg font-medium'>{item.name}</p>
-                <p className='text-gray-900 text-sm'>{item.speciality}</p>
+                <p className='text-gray-900 text-lg font-medium'>{docId.name}</p>
+                <p className='text-gray-900 text-sm'>{docId.speciality}</p>
               </div>
             </div>
           ))
@@ -49,3 +52,4 @@ const Doctors = () => {
 };
 
 export default Doctors;
+//

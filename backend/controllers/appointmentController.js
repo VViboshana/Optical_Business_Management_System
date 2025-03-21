@@ -19,3 +19,6 @@ export const createAppointment = async (req, res) => {
     res.status(500).json({ message: 'Error booking appointment', error: error.message });
   }
 };
+//
+
+
