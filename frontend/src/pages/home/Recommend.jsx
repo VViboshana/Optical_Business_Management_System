@@ -8,15 +8,12 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useFetchAllGlassesQuery } from "../../redux/features/glasses/glassApi";
 
 const Recommend = () => {
-  const [glasses, setGlasses] = useState([]);
 
-  useEffect(() => {
-    fetch("glasses.json")
-      .then((res) => res.json())
-      .then((data) => setGlasses(data));
-  }, []);
+    const {data:glasses=[]}=useFetchAllGlassesQuery();
+
   return (
     <div className="py-16">
       <h2 className="text-3xl font-semibold mb-6">Recommended for you</h2>

@@ -1,7 +1,7 @@
 //Kumod
 const express = require('express')
 const Glass = require('../glasses/glass.model');
-const { postAGlass, getAllGlasses, getSingleGlass, UpdatedGlass } = require('./glass.controller');
+const { postAGlass, getAllGlasses, getSingleGlass, UpdatedGlass, deleteAGlass } = require('./glass.controller');
 const router = express.Router();
 
 //frontend -> backend server -> controller -> book schema -> database -> send to server -> back to the front end
@@ -17,5 +17,8 @@ router.get("/:id",getSingleGlass)
 
 //update glass endpoint
 router.put("/edit/:id",UpdatedGlass)
+
+//delete glass
+router.delete("/:id",deleteAGlass)
 
 module.exports=router;

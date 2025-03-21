@@ -57,9 +57,28 @@ const UpdatedGlass = async(req,res)=>{
     }
 }
 
+const deleteAGlass = async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const deletedGlass = await Glass.findByIdAndDelete(id);
+        if(!deletedGlass){
+            res.status(404).send({message:"Glass is not found"})
+        }
+        res.status(200).send({
+            message:"Glass Deleted successfully",
+            glass: deletedGlass
+        })
+        
+    } catch (error) {
+        console.error("Error Deleting Glass",error);
+        res.status(500).send({message:"Failed to delete glass"})
+    }
+};
+
 module.exports = {
     postAGlass,
     getAllGlasses,
     getSingleGlass,
-    UpdatedGlass
+    UpdatedGlass,
+    deleteAGlass
 }

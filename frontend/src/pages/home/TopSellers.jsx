@@ -8,6 +8,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useFetchAllGlassesQuery } from "../../redux/features/glasses/glassApi";
 
 const categories = [
   "Choose a category",
@@ -18,14 +19,10 @@ const categories = [
 ];
 
 const TopSellers = () => {
-  const [glasses, setGlasses] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
+  
+  const [selectedCategory, setSelectedCategory] = useState("Choose a category");
 
-  useEffect(() => {
-    fetch("glasses.json")
-      .then((res) => res.json())
-      .then((data) => setGlasses(data));
-  }, []);
+  const {data:glasses=[]}=useFetchAllGlassesQuery();
 
   const filteredGlasses =
     selectedCategory === "Choose a category"
