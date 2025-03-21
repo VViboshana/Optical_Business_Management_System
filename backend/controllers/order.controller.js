@@ -1,13 +1,13 @@
-// //Kumod
-// const createAOrder = async()=>{
+//Salini
+const createAOrder = async()=>{
 
-//     try {
+    try {
        
-//     } catch (error) {
+    } catch (error) {
         
-//     }
-// }
+    }
+}
 
-// module.exports={
-//     createAOrder
-// }
+module.exports={
+    createAOrder
+}
