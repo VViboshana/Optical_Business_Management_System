@@ -1,3 +1,4 @@
+//linara
 const Appointment = require("../models/appointmentModel.js");
 
 //Add a new appointment
@@ -59,6 +60,6 @@ const CancelAppointment = async (req, res) => {
 
 
 module.exports = {createAppointment,getAllAppointments,getAppointmentById,CancelAppointment};
-//
+
 
 

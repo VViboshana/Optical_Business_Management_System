@@ -1,3 +1,4 @@
+//linara
 const Doctor = require("../models/doctorModel");
 
 
@@ -60,4 +61,4 @@ const getDoctorById = async (req, res) => {
 };
   
   module.exports = {addDoctor,getAllDoctors,updateDoctor,getDoctorById};
-  //
+  
