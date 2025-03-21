@@ -1,4 +1,3 @@
-// backend/controllers/appointmentController.js
 import { Appointment } from '../models/appointmentModel.js';
 
 export const createAppointment = async (req, res) => {

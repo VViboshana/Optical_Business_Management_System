@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext'; // Import the context
 
 const Appointment = () => {
   const { docId } = useParams();
   const navigate = useNavigate();
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
-  const [slotIndex, setSlotIndex] = useState(null);
+  const [slotIndex, setSlotIndex] = useState(0); // Default to first available date
   const [slotTime, setSlotTime] = useState('');
+
+  const { currencySymbol } = useContext(AppContext); // Access the currency symbol
 
   useEffect(() => {
     // Fetch doctor details
@@ -79,34 +82,39 @@ const Appointment = () => {
           </div>
 
           <p className='text-gray-500 font-medium mt-4'>
-            Appointment fee: <span className='text-gray-600'>${docInfo.fee}</span>
+            Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
           </p>
           <p className='text-gray-500 font-medium mt-4'>
-             Service Charge: <span className='text-gray-600'>${docInfo.
-serviceCharge
-}</span>
+            Service Charge: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
           </p>
         </div>
       </div>
 
       <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
         <p>Booking Slots</p>
+
+        {/* Date Selection */}
         <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
           {docSlots.length > 0 &&
             docSlots.map((item, index) => (
               <div
-                onClick={() => setSlotIndex(index)}
-                className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border-gray-200'}`}
+                onClick={() => {
+                  setSlotIndex(index);
+                  setSlotTime('');
+                }}
+                className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                  slotIndex === index ? 'bg-primary text-white' : 'border-gray-200'
+                }`}
                 key={index}
               >
-                <p>{item[0]?.datetime.toLocaleDateString()}</p>
+                <p>{`${item[0]?.datetime.getDate()}, ${item[0]?.datetime.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase()}`}</p>
               </div>
             ))}
         </div>
 
+        {/* Time Slots - Always Visible */}
         <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
           {docSlots.length > 0 &&
-            slotIndex !== null &&
             docSlots[slotIndex].map((item, index) => (
               <p
                 onClick={() => setSlotTime(item.time)}
@@ -120,12 +128,17 @@ serviceCharge
             ))}
         </div>
 
-        <button onClick={() => navigate('/patient-details')}
-          className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>
+        {/* Book Appointment Button - Disabled until both date and time are selected */}
+        <button
+          onClick={() => navigate('/patient-details')}
+          disabled={!slotTime} // Disable if no time is selected
+          className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
+            slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
+        >
           Book Appointment
         </button>
       </div>
-      
     </div>
   ) : (
     <p>Loading doctor details...</p>
@@ -133,4 +146,3 @@ serviceCharge
 };
 
 export default Appointment;
-

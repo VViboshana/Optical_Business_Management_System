@@ -21,12 +21,11 @@ app.use('/api', router);
 app.use('/api', doctorRoutes);
 
 
-
 // Test API
 app.get('/', (req, res) => {
     res.send('API WORKING');
 });
 
-// Start the Server
+// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

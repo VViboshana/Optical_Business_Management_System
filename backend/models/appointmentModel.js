@@ -1,4 +1,3 @@
-// backend/models/appointmentsModel.js
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema({
@@ -18,7 +17,7 @@ const appointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-}, { timestamps: true });  // This will automatically add createdAt and updatedAt
+}, { timestamps: true });  
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 

@@ -6,9 +6,7 @@ const doctorRoutes = express.Router();
 doctorRoutes.post("/add-doctor",addDoctor)
 doctorRoutes.get("/",getAllDoctors)
 doctorRoutes.put("/update/:id",updateDoctor)
-doctorRoutes.get("/:id", getDoctorById);  // ✅ Route to fetch doctor by ID
-
-
+doctorRoutes.get("/:id", getDoctorById);  
 
 module.exports=doctorRoutes;
 //

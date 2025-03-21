@@ -1,5 +1,6 @@
 const Doctor = require("../models/doctorModel");
 
+
 // Add a new doctor
 const addDoctor = async (req, res) => {
     try {
@@ -58,10 +59,5 @@ const getDoctorById = async (req, res) => {
   }
 };
   
-  module.exports = {
-      addDoctor,
-    getAllDoctors,
-    updateDoctor,
-    getDoctorById
-  };
+  module.exports = {addDoctor,getAllDoctors,updateDoctor,getDoctorById};
   //

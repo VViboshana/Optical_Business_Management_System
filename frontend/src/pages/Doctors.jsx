@@ -9,10 +9,10 @@ const Doctors = () => {
   
 
   useEffect(() => {
-    // Fetch doctors from backend
+    // Fetch doctors
     const fetchDoctors = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/'); // Update with your backend URL
+        const response = await fetch('http://localhost:5000/api/'); 
         const data = await response.json();
         setFilterDoc(data);
       } catch (error) {
