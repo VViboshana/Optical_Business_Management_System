@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "serevr.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node serevr.js",
-    "serevr": "nodemon serevr.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
