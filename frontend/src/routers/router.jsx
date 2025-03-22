@@ -32,32 +32,32 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
       {
-        path:"/glasses/:id",
-        element:<SingleGlass/>,
-      }
+        path: "/glasses/:id",
+        element: <SingleGlass />,
+      },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout/>,
-    children:[
+    element: <DashboardLayout />,
+    children: [
       {
         path: "",
-        element: <Dashboard/>
+        element: <Dashboard />,
       },
       {
         path: "add-new-glass",
-        element: <AddGlass/>
+        element: <AddGlass />,
       },
       {
         path: "edit-glass/:id",
-        element: <UpdateGlass/>
+        element: <UpdateGlass />,
       },
       {
         path: "manage-glasses",
-        element: <ManageGlasses/>
-      }
-    ]
+        element: <ManageGlasses />,
+      },
+    ],
   },
 
   //Unlock when admin part finished
@@ -87,7 +87,6 @@ const router = createBrowserRouter([
   //     }
   //   ]
   // }
-
 ]);
 
 export default router;

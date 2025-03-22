@@ -1,13 +1,9 @@
 //Salini
-const createAOrder = async()=>{
+const createAOrder = async () => {
+  try {
+  } catch (error) {}
+};
 
-    try {
-       
-    } catch (error) {
-        
-    }
-}
-
-module.exports={
-    createAOrder
-}
+module.exports = {
+  createAOrder,
+};

@@ -1,30 +1,38 @@
-import React, { useEffect } from 'react'
-import { useFetchGlassByIdQuery, useUpdateGlassMutation } from '../../../redux/features/glasses/glassApi';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import getBaseURL from '../../../utils/baseURL';
-import Loading from '../../../components/Loading';
-import InputField from '../addGlass/InputField';
-import SelectField from '../addGlass/SelectField';
-import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useEffect } from "react";
+import {
+  useFetchGlassByIdQuery,
+  useUpdateGlassMutation,
+} from "../../../redux/features/glasses/glassApi";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import getBaseURL from "../../../utils/baseURL";
+import Loading from "../../../components/Loading";
+import InputField from "../addGlass/InputField";
+import SelectField from "../addGlass/SelectField";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateGlass = () => {
-    const { id } = useParams();
-    const { data: glassData, isLoading, isError, refetch } = useFetchGlassByIdQuery(id);
-    const [updateGlass] = useUpdateGlassMutation();
-    const { register, handleSubmit, setValue, reset } = useForm();
+  const { id } = useParams();
+  const {
+    data: glassData,
+    isLoading,
+    isError,
+    refetch,
+  } = useFetchGlassByIdQuery(id);
+  const [updateGlass] = useUpdateGlassMutation();
+  const { register, handleSubmit, setValue, reset } = useForm();
   useEffect(() => {
     if (glassData) {
-      setValue('title', glassData.title);
-      setValue('description', glassData.description);
-      setValue('category', glassData?.category);
-      setValue('trending', glassData.trending);
-      setValue('oldPrice', glassData.oldPrice);
-      setValue('newPrice', glassData.newPrice);
-      setValue('coverImage', glassData.coverImage)
+      setValue("title", glassData.title);
+      setValue("description", glassData.description);
+      setValue("category", glassData?.category);
+      setValue("trending", glassData.trending);
+      setValue("oldPrice", glassData.oldPrice);
+      setValue("newPrice", glassData.newPrice);
+      setValue("coverImage", glassData.coverImage);
     }
-  }, [glassData, setValue])
+  }, [glassData, setValue]);
 
   const onSubmit = async (data) => {
     const updateGlassData = {
@@ -37,12 +45,16 @@ const UpdateGlass = () => {
       coverImage: data.coverImage || glassData.coverImage,
     };
     try {
-      await axios.put(`${getBaseURL()}/api/glasses/edit/${id}`, updateGlassData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      await axios.put(
+        `${getBaseURL()}/api/glasses/edit/${id}`,
+        updateGlassData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      })
+      );
       Swal.fire({
         title: "Product Updated",
         text: "Your product is updated successfully!",
@@ -50,16 +62,16 @@ const UpdateGlass = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, It's Okay!"
+        confirmButtonText: "Yes, It's Okay!",
       });
-      await refetch()
+      await refetch();
     } catch (error) {
-        console.log("Failed to update product.");
-        alert("Failed to update product.");
+      console.log("Failed to update product.");
+      alert("Failed to update product.");
     }
-  }
-  if (isLoading) return <Loading />
-  if (isError) return <div>Error fetching product data</div>
+  };
+  if (isLoading) return <Loading />;
+  if (isError) return <div>Error fetching product data</div>;
   return (
     <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Product</h2>
@@ -84,11 +96,11 @@ const UpdateGlass = () => {
           label="Category"
           name="category"
           options={[
-            { value: '', label: 'Choose A Category' },
-            { value: 'Professional', label: 'Professional' },
-            { value: 'Casual', label: 'Casual' },
-            { value: 'Sports & Adventure', label: 'Sports & Adventure' },
-            { value: 'Luxury & Fashion', label: 'Luxury & Fashion' },
+            { value: "", label: "Choose A Category" },
+            { value: "Professional", label: "Professional" },
+            { value: "Casual", label: "Casual" },
+            { value: "Sports & Adventure", label: "Sports & Adventure" },
+            { value: "Luxury & Fashion", label: "Luxury & Fashion" },
           ]}
           register={register}
         />
@@ -96,10 +108,12 @@ const UpdateGlass = () => {
           <label className="inline-flex items-center">
             <input
               type="checkbox"
-              {...register('trending')}
+              {...register("trending")}
               className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
             />
-            <span className="ml-2 text-sm font-semibold text-gray-700">Trending</span>
+            <span className="ml-2 text-sm font-semibold text-gray-700">
+              Trending
+            </span>
           </label>
         </div>
 
@@ -127,12 +141,15 @@ const UpdateGlass = () => {
           register={register}
         />
 
-        <button type="submit" className="w-full py-2 bg-primary text-white font-bold rounded-md">
+        <button
+          type="submit"
+          className="w-full py-2 bg-primary text-white font-bold rounded-md"
+        >
           Update Product
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default UpdateGlass
+export default UpdateGlass;

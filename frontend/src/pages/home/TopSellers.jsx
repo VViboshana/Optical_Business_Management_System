@@ -19,10 +19,9 @@ const categories = [
 ];
 
 const TopSellers = () => {
-  
   const [selectedCategory, setSelectedCategory] = useState("Choose a category");
 
-  const {data:glasses=[]}=useFetchAllGlassesQuery();
+  const { data: glasses = [] } = useFetchAllGlassesQuery();
 
   const filteredGlasses =
     selectedCategory === "Choose a category"
