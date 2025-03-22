@@ -1,3 +1,4 @@
+//linara
 import React, { useState, useEffect } from 'react';
 
 const MyAppointments = () => {
@@ -31,6 +32,7 @@ const MyAppointments = () => {
               <p><strong>Doctor's Name:</strong> {appointment.doctorName}</p>
               <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
               <p><strong>Time Slot:</strong> {appointment.slot}</p>
+              <p><strong>Total Fee: </strong>{appointment.totalFee}</p>
               
               <div className="mt-4">
                 <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-4">

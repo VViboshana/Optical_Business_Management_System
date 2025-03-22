@@ -27,22 +27,24 @@ const Doctors = () => {
 
   return (
     <div>
-      <p className="text-gray-600">Browse through the doctors by specialization.</p>
+      <p className="text-black font-semibold">Browse through the doctors by specialization.</p>
       
       {/* Filter Buttons */}
       <div className="flex gap-4 mt-4">
         <button 
           onClick={() => navigate("/doctors/General Doctor")}
-          className={`py-2 px-4 border rounded ${
-            specialization === "General Doctor" ? "bg-blue-500 text-white" : "bg-gray-100"
+          className={`py-2 px-4 border rounded-xl transition-all duration-300 ${
+            specialization === "General Doctor" ? "bg-blue-500 text-white" : "bg-gray-100 hover:bg-blue-100"
+
+
           }`}
         >
           General Doctor
         </button>
         <button 
           onClick={() => navigate("/doctors/Optician")}
-          className={`py-2 px-4 border rounded ${
-            specialization === "Optician" ? "bg-blue-500 text-white" : "bg-gray-100"
+          className={`py-2 px-4 border rounded-xl transition-all duration-300 ${
+            specialization === "Optician" ? "bg-blue-500 text-white" : "bg-gray-100 hover:bg-blue-100"
           }`}
         >
           Optician

@@ -6,8 +6,9 @@ const Doctor = require('../models/doctorModel.js');
 const createAppointment = async (req, res) => {
   try {
 
-    const { name, email, phone, address, paymentMethod, doctorId, date, slot } = req.body;
+    const { name, email, phone, address, paymentMethod, doctorId, doctorName, date, slot, totalFee} = req.body;
 
+ 
     // Create a new appointment
     const appointment = new Appointment({
       name,
@@ -15,9 +16,11 @@ const createAppointment = async (req, res) => {
       phone,
       address,
       paymentMethod,
-      docId: doctorId,  // Ensure this field is passed correctly
-      date,  // Ensure date is sent from the frontend
-      slot,  // Ensure slot is sent from the frontend
+      docId: doctorId,  
+      doctorName,
+      date,  
+      slot,  
+      totalFee,
     });
 
     // Save the appointment to the database

@@ -11,6 +11,10 @@ const appointmentSchema = new mongoose.Schema({
   docId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
   date: { type: Date, required: true },  // Add the date field to store the appointment date
   slot: { type: String, required: true }, // Store the selected slot as a string
+  doctorName: { type: String,required: true,},
+
+  totalFee: {type: Number,required: true,},
+
 
 },
  );  

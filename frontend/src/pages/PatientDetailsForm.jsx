@@ -1,14 +1,14 @@
 //linara
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
-import { useNavigate } from 'react-router-dom'; // Add this import
+import { useLocation } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 
 const PatientDetailsForm = () => {
-  const location = useLocation(); // Get location
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const location = useLocation(); 
+  const navigate = useNavigate(); 
 
-  const { doctorId, doctorName, date, slot } = location.state || {}; // Destructure passed state
+  const { doctorId, doctorName, date, slot } = location.state || {}; 
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +17,7 @@ const PatientDetailsForm = () => {
     address: '',
     paymentMethod: 'Cash', // Default payment method
   });
+
   const [doctorFee, setDoctorFee] = useState(0);
   const [serviceCharge, setServiceCharge] = useState(0);
   const [message, setMessage] = useState('');
@@ -54,6 +55,20 @@ const PatientDetailsForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+      // Validate email 
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(formData.email)) {
+      setMessage('Please enter a valid email address');
+      return;
+    }
+
+    // Validate phone number 
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(formData.phone)) {
+      setMessage('Please enter a valid phone number');
+      return;
+    }
+
     if (formData.paymentMethod === 'Cash') {
       try {
         const response = await fetch('http://localhost:5000/api/book-appointment', {
@@ -64,8 +79,10 @@ const PatientDetailsForm = () => {
           body: JSON.stringify({
             ...formData,
             doctorId,
+            doctorName,
             date,
             slot,
+            totalFee,
           }),
         });
 

@@ -1,7 +1,7 @@
 //linara
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext'; // Import the context
+import { AppContext } from '../context/AppContext'; 
 
 
 const Appointment = () => {
@@ -9,16 +9,16 @@ const Appointment = () => {
   const navigate = useNavigate();
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
-  const [slotIndex, setSlotIndex] = useState(0); // Default to first available date
+  const [slotIndex, setSlotIndex] = useState(0); 
   const [slotTime, setSlotTime] = useState('');
 
-  const { currencySymbol } = useContext(AppContext); // Access the currency symbol
+  const { currencySymbol } = useContext(AppContext); 
 
   useEffect(() => {
     // Fetch doctor details
     const fetchDocInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/${docId}`); // Ensure correct backend endpoint
+        const response = await fetch(`http://localhost:5000/api/${docId}`); 
         const data = await response.json();
         setDocInfo(data);
       } catch (error) {
@@ -76,12 +76,20 @@ const Appointment = () => {
           <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt={docInfo.name} />
         </div>
 
-        <div className='flex-1 border-gray-400 rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0'>
+        <div className='mt-6 border-2 p-6 rounded-lg bg-gray-300 shadow-xl w-full sm:w-100'>
           <p className='flex items-center gap-2 text-2xl font-medium text-gray-900'>{docInfo.name}</p>
 
           <div className='text-sm mt-1 text-gray-600'>
             <p>{docInfo.specialization}</p>
           </div>
+
+          <p className='text-gray-500 font-medium mt-4'>
+           Experience: <span className='text-gray-600'>{docInfo.experience} years</span>
+          </p>
+          <p className='text-gray-500 font-medium mt-4'>
+          About: <span className='text-gray-600'>{docInfo.about}</span>
+          </p>
+
 
           <p className='text-gray-500 font-medium mt-4'>
             Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
@@ -114,7 +122,7 @@ const Appointment = () => {
             ))}
         </div>
 
-        {/* Time Slots - Always Visible */}
+        {/* Time Slots  */}
         <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
           {docSlots.length > 0 &&
             docSlots[slotIndex].map((item, index) => (
@@ -130,24 +138,24 @@ const Appointment = () => {
             ))}
         </div>
 
-        <button
-  onClick={() =>
-    navigate('/patient-details', {
-      state: {
-        doctorId: docId,
-        doctorName: docInfo.name,
-        date: docSlots[slotIndex][0].datetime, // Date of the selected slot
-        slot: slotTime, // Selected time slot
-      },
-    })
-  }
-  disabled={!slotTime}
-  className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
-    slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-  }`}
->
-  Book Appointment
-</button>
+            <button
+      onClick={() =>
+        navigate('/patient-details', {
+          state: {
+            doctorId: docId,
+            doctorName: docInfo.name,
+            date: docSlots[slotIndex][0].datetime, // Date of the selected slot
+            slot: slotTime, // Selected time slot
+          },
+        })
+      }
+      disabled={!slotTime}
+      className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
+        slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+      }`}
+    >
+      Book Appointment
+    </button>
 
       </div>
     </div>
