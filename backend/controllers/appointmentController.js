@@ -3,12 +3,11 @@ const Appointment = require("../models/appointmentModel.js");
 const Doctor = require('../models/doctorModel.js');
 
 //Add a new appointment
+
 const createAppointment = async (req, res) => {
   try {
-
     const { name, email, phone, address, paymentMethod, doctorId, doctorName, date, slot, totalFee} = req.body;
 
- 
     // Create a new appointment
     const appointment = new Appointment({
       name,
@@ -23,29 +22,28 @@ const createAppointment = async (req, res) => {
       totalFee,
     });
 
-    // Save the appointment to the database
     await appointment.save();
-
-
-    //const newAppointment = new Appointment ({ ...req.body });
-    //await newAppointment.save();
 
     res.status(201).send({ message: 'Appointment booked successfully', data: appointment });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Error booking appointment', error: error.message });
   }
+
 };
 
  // Get all appointments
-const getAllAppointments = async (req, res) => {
-  try {
-    const appointments = await Appointment.find();
-    res.status(200).json(appointments);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error fetching appointments', error: error.message });
-  }
+
+  const getAllAppointments = async (req, res) => {
+    try {
+      const appointments = await Appointment.find();
+      res.status(200).json(appointments);
+
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error fetching appointments', error: error.message });
+    }
+
 };
 
 
@@ -72,13 +70,13 @@ const CancelAppointment = async (req, res) => {
     const canceledAppointment = await Appointment.findByIdAndDelete(req.params.id);
 
     if (!canceledAppointment) {
-      return res.status(404).json({ message: 'Appointment not found' });
+      return res.status(404).send({ message: 'Appointment not found' });
     }
 
-    res.status(200).json({ message: 'Appointment deleted successfully' });
+    res.status(200).send({ message: 'Appointment deleted successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error deleting appointment', error: error.message });
+    res.status(500).send({ message: 'Error deleting appointment', error: error.message });
   }
 };
 
