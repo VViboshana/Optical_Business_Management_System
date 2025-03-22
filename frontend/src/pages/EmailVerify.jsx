@@ -42,21 +42,20 @@ const EmailVerify = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
-      const otpArray = inputRefs.current.map(e => e.value)
-      const otp = otpArray.join('')
-
-      const {data} = await axios.post(backendUrl +
-        '/api/auth/verify-account', {otp})
-
-      if(data.success){
-        toast.success(data.message)
-        getUserData()
-        navigate('/')
-      }else{
-        toast.error(data.message)
+      const otpArray = inputRefs.current.map(e => e.value);
+      const otp = otpArray.join('');
+  
+      const { data } = await axios.post(`${backendUrl}/api/auth/verify-account`, { otp });
+  
+      if (data.success) {
+        toast.success(data.message);
+        getUserData();
+        navigate('/login'); // Navigate to the login page after successful verification
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 
