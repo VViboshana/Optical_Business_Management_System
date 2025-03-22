@@ -7,7 +7,8 @@ import Swal from 'sweetalert2';
 
 const CheckoutPage =() => {
     const cartItems = useSelector((state) => state.cart.cartItems);
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice * item.quantity, 0).toFixed(2);
+    const totalItemsCount = cartItems.reduce((acc,item) => acc + item.quantity, 0);
     const currentUser = true;
     const {
         register,
@@ -38,7 +39,7 @@ const CheckoutPage =() => {
             address: data.address,
             phone: data.phone,
             productIds: [ "507f1f77bcf86cd799439011", "507f1f77bcf86cd799439012" ],
-            totalPrice: "10.00"
+            totalPrice: totalPrice,
         }
 
         sessionStorage.setItem("email", data.email);
@@ -70,7 +71,7 @@ const CheckoutPage =() => {
                         <div>
                             <h2 className="font-semibold text-xl text-gray-600 mb-2">Check Out</h2>
                             <p className="text-gray-500 mb-2">Total Price: ${totalPrice}</p>
-                            <p className="text-gray-500 mb-6">Items: {cartItems.length > 0 ? cartItems.length : 0}</p>
+                            <p className="text-gray-500 mb-6">Items: {totalItemsCount > 0 ? totalItemsCount : 0}</p>
                         </div>
 
                         

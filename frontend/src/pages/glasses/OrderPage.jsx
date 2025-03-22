@@ -5,6 +5,7 @@ import { useGetOrderByEmailQuery } from '../../redux/features/order/ordersApi';
 const OrderPage = () => {
     // const[email, setEmail] = useState("");
     // const[submittedEmail, setSubmittedEmail] = useState(null);
+    //const { currentUser} = useAuth();
     const{data: orders = [], isLoading, isError} = useGetOrderByEmailQuery("test@gmail.com");
     
     if(isLoading) return <div>Loading...</div>;

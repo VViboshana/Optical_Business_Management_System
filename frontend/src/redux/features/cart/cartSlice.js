@@ -2,7 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 
 const initialState = {
-  cartItems: [],
+  cartItems: [
+    {
+      _id: "1",
+      title: "Frame1",
+      newPrice: 1500,
+      quantity: 1,
+    },
+    {
+      _id: "2",
+      title: "Frame5",
+      newPrice: 800,
+      quantity: 2,
+    },
+    {
+      _id: "3",
+      title: "Frame3",
+      newPrice: 1700,
+      quantity: 1,
+    }
+  ],
 };
 
 const cartSlice = createSlice({
