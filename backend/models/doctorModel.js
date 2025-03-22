@@ -13,7 +13,7 @@ const doctorSchema = new mongoose.Schema({
     serviceCharge: {type: Number,required: true,},
     //createdAt: {type: Date,default: Date.now,},
     date: { type: Number, required: true },
-    slots_booked: { type: Object, default: {}, },
+    slots: { type: Object, default: {}, },
 
 }, {timestamps: true,} );
 
