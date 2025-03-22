@@ -1,53 +1,69 @@
-//linara
-
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Doctors = () => {
+  const { specialization } = useParams(); // Get specialization from the URL
   const [filterDoc, setFilterDoc] = useState([]);
   const navigate = useNavigate();
-  
-
-  
 
   useEffect(() => {
-    // Fetch doctors
     const fetchDoctors = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/'); 
+        const response = await fetch("http://localhost:5000/api/");
         const data = await response.json();
         setFilterDoc(data);
       } catch (error) {
-        console.error('Error fetching doctors:', error);
+        console.error("Error fetching doctors:", error);
       }
     };
 
     fetchDoctors();
   }, []);
 
+  // Apply filter when specialization changes
+  const filteredDoctors = specialization
+    ? filterDoc.filter((doc) => doc.specialization === specialization)
+    : filterDoc;
+
   return (
     <div>
-      <p className='text-gray-600'>Browse through doctors</p>
+      <p className="text-gray-600">Browse through the doctors by specialization.</p>
       
-      <div className='w-full grid grid-cols-auto gap-4 gap-y-6'>
-        {
-          filterDoc.map((docId) => (
-            <div
-              onClick={() => navigate(`/appointment/${docId._id}`)}
-              className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'
-              key={docId._id}
-            >
-              <img className='bg-gray-200' src={docId.image} alt={docId.name} />
-              <div className='p-4'>
-                <div className='flex items-center gap-2 text-sm text-center text-green-500'>
-                  <p className='w-2 h-2 bg-green-500 rounded-full'></p><p>Available</p>
-                </div>
-                <p className='text-gray-900 text-lg font-medium'>{docId.name}</p>
-                <p className='text-gray-900 text-sm'>{docId.speciality}</p>
-              </div>
+      {/* Filter Buttons */}
+      <div className="flex gap-4 mt-4">
+        <button 
+          onClick={() => navigate("/doctors/General Doctor")}
+          className={`py-2 px-4 border rounded ${
+            specialization === "General Doctor" ? "bg-blue-500 text-white" : "bg-gray-100"
+          }`}
+        >
+          General Doctor
+        </button>
+        <button 
+          onClick={() => navigate("/doctors/Optician")}
+          className={`py-2 px-4 border rounded ${
+            specialization === "Optician" ? "bg-blue-500 text-white" : "bg-gray-100"
+          }`}
+        >
+          Optician
+        </button>
+      </div>
+
+      {/* Doctors Grid */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+        {filteredDoctors.map((doc) => (
+          <div
+            onClick={() => navigate(`/appointment/${doc._id}`)}
+            className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
+            key={doc._id}
+          >
+            <img className="bg-gray-200 w-full h-40 object-cover" src={doc.image} alt={doc.name} />
+            <div className="p-4">
+              <p className="text-gray-900 text-lg font-medium">{doc.name}</p>
+              <p className="text-gray-600 text-sm">{doc.specialization}</p>
             </div>
-          ))
-        }
+          </div>
+        ))}
       </div>
     </div>
   );

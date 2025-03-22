@@ -1,8 +1,8 @@
 //linara
-
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext'; // Import the context
+
 
 const Appointment = () => {
   const { docId } = useParams();
@@ -87,7 +87,7 @@ const Appointment = () => {
             Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
           </p>
           <p className='text-gray-500 font-medium mt-4'>
-            Service Charge: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
+            Service Charge: <span className='text-gray-600'>{currencySymbol}{docInfo.serviceCharge}</span>
           </p>
         </div>
       </div>
@@ -130,16 +130,25 @@ const Appointment = () => {
             ))}
         </div>
 
-        {/* Book Appointment Button - Disabled until both date and time are selected */}
         <button
-          onClick={() => navigate('/patient-details')}
-          disabled={!slotTime} // Disable if no time is selected
-          className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
-            slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          Book Appointment
-        </button>
+  onClick={() =>
+    navigate('/patient-details', {
+      state: {
+        doctorId: docId,
+        doctorName: docInfo.name,
+        date: docSlots[slotIndex][0].datetime, // Date of the selected slot
+        slot: slotTime, // Selected time slot
+      },
+    })
+  }
+  disabled={!slotTime}
+  className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
+    slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+  }`}
+>
+  Book Appointment
+</button>
+
       </div>
     </div>
   ) : (

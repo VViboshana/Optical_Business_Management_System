@@ -8,12 +8,12 @@ const appointmentSchema = new mongoose.Schema({
   address: {type: String, required: true,},
   paymentMethod: {type: String,enum: ['Cash', 'Card'],required: true,},
 
-  docId: { type: String, required: true },
-  slotDate: { type: String, required: true },
-  slotTime: { type: String, required: true },
-  
+  docId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
+  date: { type: Date, required: true },  // Add the date field to store the appointment date
+  slot: { type: String, required: true }, // Store the selected slot as a string
+
 },
- { timestamps: true });  
+ );  
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 

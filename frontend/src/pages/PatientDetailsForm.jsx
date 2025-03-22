@@ -1,7 +1,15 @@
 //linara
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useNavigate } from 'react-router-dom'; // Add this import
 
-const PatientDetailsForm = ({ doctorId, date, timeSlot }) => {
+
+const PatientDetailsForm = () => {
+  const location = useLocation(); // Get location
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const { doctorId, doctorName, date, slot } = location.state || {}; // Destructure passed state
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -57,7 +65,7 @@ const PatientDetailsForm = ({ doctorId, date, timeSlot }) => {
             ...formData,
             doctorId,
             date,
-            timeSlot,
+            slot,
           }),
         });
 
@@ -65,6 +73,7 @@ const PatientDetailsForm = ({ doctorId, date, timeSlot }) => {
 
         if (response.ok) {
           setMessage('Appointment booked successfully!');
+          navigate('/my-appointments'); // Use navigate instead of history.push
         } else {
           setMessage(result.message || 'Error booking appointment');
         }

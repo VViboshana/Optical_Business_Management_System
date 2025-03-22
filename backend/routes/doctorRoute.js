@@ -1,3 +1,4 @@
+//linara
 const express = require('express')
 const Doctor = require("../models/doctorModel");
 const { addDoctor, getAllDoctors, updateDoctor,getDoctorById } = require('../controllers/doctorController');
@@ -9,4 +10,3 @@ doctorRoutes.put("/update/:id",updateDoctor)
 doctorRoutes.get("/:id", getDoctorById);  
 
 module.exports=doctorRoutes;
-//

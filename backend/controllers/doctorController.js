@@ -4,16 +4,30 @@ const Doctor = require("../models/doctorModel");
 
 // Add a new doctor
 const addDoctor = async (req, res) => {
-    try {
-      const newDoctor = new Doctor({ ...req.body });
-      await newDoctor.save();
-      res.status(200).send({ message: "Doctor added successfully", doctor: newDoctor });
-    } catch (error) {
-      console.error("Error adding doctor", error);
-      res.status(500).send({ message: "Failed to add doctor" });
-    }
-  };
-  
+  try {
+    const { name, specialization, experience, about, fee, serviceCharge, date, slot } = req.body;
+        
+        // Create a new doctor document
+        const newDoctor = new Doctor({
+            name,
+            specialization,
+            experience,
+            about,
+            fee,
+            serviceCharge,
+            date,
+            slot,
+        });
+
+    const savedDoctor = await newDoctor.save();  // Save doctor to DB
+    
+    res.status(200).send({ message: "Doctor added successfully", doctor: savedDoctor });
+  } catch (error) {
+    console.error("Error adding doctor", error);  // Log the exact error for debugging
+    res.status(500).send({ message: "Failed to add doctor", error: error.message });
+  }
+};
+
   // Get all doctors
   const getAllDoctors = async (req, res) => {
     try {

@@ -1,3 +1,4 @@
+//linara
 const express = require('express');
 const Appointment = require("../models/appointmentModel");
 const { createAppointment,getAllAppointments,getAppointmentById,CancelAppointment} =require('../controllers/appointmentController');
@@ -10,8 +11,6 @@ appointmentRoutes.get('/appointments/:id', getAppointmentById);
 appointmentRoutes.delete('/appointments/:id', CancelAppointment);
 
 module.exports=appointmentRoutes;
-
-//
 
 
 
