@@ -1,5 +1,3 @@
-//linara
-
 import React, { useState, useEffect } from 'react';
 
 const MyAppointments = () => {
@@ -30,14 +28,11 @@ const MyAppointments = () => {
         <div className="space-y-4">
           {appointments.map((appointment) => (
             <div key={appointment._id} className="border p-4 rounded-lg shadow-md">
-              <p><strong>Name:</strong> {appointment.name}</p>
-              <p><strong>Email:</strong> {appointment.email}</p>
-              <p><strong>Phone:</strong> {appointment.phone}</p>
-              <p><strong>Address:</strong> {appointment.address}</p>
-              <p><strong>Booked At:</strong> {new Date(appointment.createdAt).toLocaleString()}</p>
-
+              <p><strong>Doctor's Name:</strong> {appointment.doctorName}</p>
+              <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
+              <p><strong>Time Slot:</strong> {appointment.slot}</p>
+              
               <div className="mt-4">
-                
                 <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-4">
                   Cancel Appointment
                 </button>

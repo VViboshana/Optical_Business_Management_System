@@ -73,7 +73,13 @@ const PatientDetailsForm = () => {
 
         if (response.ok) {
           setMessage('Appointment booked successfully!');
-          navigate('/my-appointments'); // Use navigate instead of history.push
+
+// Wait for a few seconds before navigating
+setTimeout(() => {
+  navigate('/my-appointments');
+}, 2000); // 2000 ms = 2 seconds delay
+
+
         } else {
           setMessage(result.message || 'Error booking appointment');
         }
