@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { IoLogoFreebsdDevil } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { HiOutlineUser } from "react-icons/hi";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import avatarImg from "../assets/avatar.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -21,6 +21,51 @@ const Navbar = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   console.log(cartItems);
 
+  //search
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const fetchSearchResults = async () => {
+    if (searchTerm.trim() === "") {
+      setShowResults(false);
+      return;
+    }
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/glasses?keyword=${searchTerm}`
+      );
+      setSearchResults(response.data);
+      setShowResults(true);
+    } catch (error) {
+      console.error("Error fetching search results", error);
+    }
+  };
+
+  // Handle form submission
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    fetchSearchResults();
+  };
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (searchTerm.trim() !== "") {
+        fetchSearchResults();
+      } else {
+        setShowResults(false);
+        setSearchResults([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
+
   const currentUser = true;
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
@@ -33,12 +78,38 @@ const Navbar = () => {
 
           {/* Search input */}
           <div className="relative sm:w-72 w-40 space-x-2">
-            <IoIosSearch className="absolute inline-block left-3 inset-y-2" />
-            <input
-              type="text"
-              placeholder="Search here"
-              className="bg-[#EAEAEA] w-full py-1 md:px-8 px-6 rounded-md focus:outline-none"
-            ></input>
+            <form onSubmit={handleSearchSubmit}>
+              <button type="submit">
+                <IoIosSearch className="absolute inline-block left-3 inset-y-2" />
+              </button>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Search here"
+                className="bg-[#EAEAEA] w-full py-1 md:px-8 px-6 rounded-md focus:outline-none"
+              ></input>
+            </form>
+
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute bg-white shadow-lg w-full mt-2 rounded-md">
+                <ul>
+                  {searchResults.map((glass) => (
+                    <li
+                      key={glass._id}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => {
+                        navigate(`/glasses/${glass._id}`);
+                        setShowResults(false);
+                      }}
+                    >
+                      {glass.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
