@@ -10,7 +10,7 @@ const Header = () => {
         className='w-36 h-36 rounded-full mb-6'/>
 
         <h1 className='flex items-center gap-2 text-x1 sm:text-3xl 
-        font-medium mb-2'>Hey {userData ? userData.name : 'Customers' }!
+        font-medium mb-2'>Hey {userData ? userData.name : 'Users' }!
         <img className='w-8 aspect-squre' src={assets.hand_wave} alt=''/>
         </h1>
         
