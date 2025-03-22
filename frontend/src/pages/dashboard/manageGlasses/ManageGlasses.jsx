@@ -86,7 +86,7 @@ const ManageGlasses = () => {
                                         Edit
                                     </Link>
                                     <button 
-                                    onClick={() => handleDeleteBook(glass._id)}
+                                    onClick={() => handleDeleteGlass(glass._id)}
                                     className="font-medium bg-red-500 py-1 px-4 rounded-full text-white mr-2">Delete</button>
                                 </td>
                             </tr> 
