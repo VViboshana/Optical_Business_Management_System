@@ -13,7 +13,7 @@ const appointmentSchema = new mongoose.Schema({
   slot: { type: String, required: true }, 
   doctorName: { type: String,required: true,},
   totalFee: {type: Number,required: true,},
-  
+    
   },);  
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

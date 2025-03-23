@@ -54,7 +54,10 @@ const MyAppointments = () => {
                 ) : (
                   <button
                     className="bg-gray-400 text-white px-6 py-3 rounded-md shadow-md cursor-not-allowed"
-                    disabled>Cancelled</button>
+                    disabled
+                  >
+                    Cancelled
+                  </button>
                 )}
               </div>
 
