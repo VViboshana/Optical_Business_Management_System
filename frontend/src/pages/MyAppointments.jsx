@@ -34,8 +34,7 @@ const MyAppointments = () => {
       <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">My Appointments</h2>
 
       {appointments.length === 0 ? (
-        <p className="text-center text-xl text-gray-600">No appointments found.</p> // Show this message if there are no appointments
-      ) : (
+        <p className="text-center text-xl text-gray-600">No appointments found.</p>) : (
         <div className="space-y-6">
           {appointments.map((appointment) => (
             <div key={appointment._id} className="border p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
@@ -43,10 +42,6 @@ const MyAppointments = () => {
               <p className="text-lg text-gray-700"><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
               <p className="text-lg text-gray-700"><strong>Time Slot:</strong> {appointment.slot}</p>
               <p className="text-lg text-gray-700"><strong>Total Fee: </strong>{appointment.totalFee}</p>
-
-              
-
-
 
               <div className="mt-6 flex justify-center">
                 {!appointment.canceled ? (
@@ -59,19 +54,10 @@ const MyAppointments = () => {
                 ) : (
                   <button
                     className="bg-gray-400 text-white px-6 py-3 rounded-md shadow-md cursor-not-allowed"
-                    disabled
-                  >
-                    Cancelled
-                  </button>
+                    disabled>Cancelled</button>
                 )}
               </div>
 
-
-
-
-
-
-              
             </div>
           ))}
         </div>

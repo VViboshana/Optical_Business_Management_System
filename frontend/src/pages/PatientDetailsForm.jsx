@@ -91,10 +91,10 @@ const PatientDetailsForm = () => {
         if (response.ok) {
           setMessage('Appointment booked successfully!');
 
-// Wait for a few seconds before navigating
-setTimeout(() => {
-  navigate('/my-appointments');
-}, 2000); // 2000 ms = 2 seconds delay
+        // Wait for a few seconds before navigating
+        setTimeout(() => {
+          navigate('/my-appointments');
+        }, 2000); // 2000 ms = 2 seconds delay
 
 
         } else {
@@ -183,8 +183,7 @@ setTimeout(() => {
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
-          >
+            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
             {formData.paymentMethod === 'Cash' ? 'Book Appointment' : 'Proceed to Payment'}
           </button>
         </form>
