@@ -1,7 +1,11 @@
+//linara
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     // Fetch appointments from the backend
@@ -29,6 +33,11 @@ const MyAppointments = () => {
   };
 
 
+  const handleInvoice = (appointment) => {
+    navigate('/receipt', { state: { appointment } });
+  };
+
+
   return (
     <div className="p-6 bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 rounded-lg shadow-lg">
       <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">My Appointments</h2>
@@ -43,23 +52,21 @@ const MyAppointments = () => {
               <p className="text-lg text-gray-700"><strong>Time Slot:</strong> {appointment.slot}</p>
               <p className="text-lg text-gray-700"><strong>Total Fee: </strong>{appointment.totalFee}</p>
 
-              <div className="mt-6 flex justify-center">
+              <div className="mt-6 flex justify-center  gap-4">
                 {!appointment.canceled ? (
                   <button
                     className="bg-red-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-red-600 transform transition-all duration-300 ease-in-out hover:scale-105"
-                    onClick={() => handleCancel(appointment._id)} 
-                  >
-                    Cancel Appointment
-                  </button>
+                    onClick={() => handleCancel(appointment._id)} >Cancel Appointment</button>
                 ) : (
-                  <button
-                    className="bg-gray-400 text-white px-6 py-3 rounded-md shadow-md cursor-not-allowed"
-                    disabled
-                  >
-                    Cancelled
-                  </button>
+                  <button className="bg-gray-400 text-white px-6 py-3 rounded-md shadow-md cursor-not-allowed" disabled>Canceled</button>
                 )}
+
+                  
+                  <button className="bg-green-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-green-600 transform transition-all duration-300 ease-in-out hover:scale-105"
+                  onClick={() => handleInvoice(appointment)}>Download PDF</button> 
               </div>
+
+              
 
             </div>
           ))}
@@ -70,3 +77,4 @@ const MyAppointments = () => {
 };
 
 export default MyAppointments;
+

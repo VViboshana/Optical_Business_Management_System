@@ -15,7 +15,7 @@ const PatientDetailsForm = () => {
     email: '',
     phone: '',
     address: '',
-    paymentMethod: 'Cash', // Default payment method
+    paymentMethod: 'Cash', 
   });
 
   const [doctorFee, setDoctorFee] = useState(0);
