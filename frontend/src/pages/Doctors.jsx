@@ -1,3 +1,4 @@
+//linara
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -59,7 +60,6 @@ const Doctors = () => {
             className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
             key={doc._id}
           >
-            <img className="bg-gray-200 w-full h-40 object-cover" src={doc.image} alt={doc.name} />
             <div className="p-4">
               <p className="text-gray-900 text-lg font-medium">{doc.name}</p>
               <p className="text-gray-600 text-sm">{doc.specialization}</p>

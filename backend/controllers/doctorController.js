@@ -1,5 +1,7 @@
 //linara
 const Doctor = require("../models/doctorModel");
+const cloudinary = require("cloudinary").v2;
+
 
 
 // Add a new doctor

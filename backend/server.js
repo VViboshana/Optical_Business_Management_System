@@ -8,7 +8,6 @@ import doctorRoutes from './routes/doctorRoute.js';
 import appointmentRoutes from './routes/appointmentRoute.js';
 
 
-
 // Initialize Express
 const app = express();
 

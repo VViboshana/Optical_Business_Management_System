@@ -72,9 +72,6 @@ const Appointment = () => {
   return docInfo ? (
     <div>
       <div className='flex flex-col sm:flex-row gap-4'>
-        <div>
-          <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt={docInfo.name} />
-        </div>
 
         <div className='mt-6 border-2 p-6 rounded-lg bg-gray-300 shadow-xl w-full sm:w-100'>
           <p className='flex items-center gap-2 text-2xl font-medium text-gray-900'>{docInfo.name}</p>
