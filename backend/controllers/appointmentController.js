@@ -1,13 +1,10 @@
 //linara
 const Appointment = require("../models/appointmentModel.js");
-const Doctor = require('../models/doctorModel.js');
 
 //Add a new appointment
-
 const createAppointment = async (req, res) => {
   try {
     const { name, email, phone, address, paymentMethod, doctorId, doctorName, date, slot, totalFee} = req.body;
-
     // Create a new appointment
     const appointment = new Appointment({
       name,
@@ -21,7 +18,6 @@ const createAppointment = async (req, res) => {
       slot,  
       totalFee,
     });
-
     await appointment.save();
 
     res.status(201).send({ message: 'Appointment booked successfully', data: appointment });
@@ -29,11 +25,9 @@ const createAppointment = async (req, res) => {
     console.error(error);
     res.status(500).send({ message: 'Error booking appointment', error: error.message });
   }
-
 };
 
  // Get all appointments
-
   const getAllAppointments = async (req, res) => {
     try {
       const appointments = await Appointment.find();
@@ -43,9 +37,7 @@ const createAppointment = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Error fetching appointments', error: error.message });
     }
-
 };
-
 
 // Get appointment by ID
 const getAppointmentById = async (req, res) => {
@@ -79,7 +71,6 @@ const CancelAppointment = async (req, res) => {
     res.status(500).send({ message: 'Error deleting appointment', error: error.message });
   }
 };
-
 
 module.exports = {createAppointment,getAllAppointments,getAppointmentById,CancelAppointment};
 

@@ -15,7 +15,6 @@ const Appointment = () => {
   const { currencySymbol } = useContext(AppContext); 
 
   useEffect(() => {
-    // Fetch doctor details
     const fetchDocInfo = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/${docId}`); 
@@ -29,12 +28,6 @@ const Appointment = () => {
     fetchDocInfo();
   }, [docId]);
 
-  useEffect(() => {
-    if (docInfo) {
-      getAvailableSlots();
-    }
-  }, [docInfo]);
-
   const getAvailableSlots = () => {
     let today = new Date();
     let slots = [];
@@ -42,8 +35,10 @@ const Appointment = () => {
     for (let i = 0; i < 7; i++) {
       let currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
+
       let startTime = new Date(currentDate);
       startTime.setHours(7, 0, 0, 0);
+      
       let endTime = new Date(currentDate);
       endTime.setHours(17, 0, 0, 0);
 
@@ -69,51 +64,34 @@ const Appointment = () => {
     setDocSlots(slots);
   };
 
+  useEffect(() => {
+    if (docInfo) {
+      getAvailableSlots();
+    }
+  }, [docInfo]);
+
   return docInfo ? (
     <div>
       <div className='flex flex-col sm:flex-row gap-4'>
-
         <div className='mt-6 border-2 p-6 rounded-lg bg-gray-300 shadow-xl w-full sm:w-100'>
           <p className='flex items-center gap-2 text-2xl font-medium text-gray-900'>{docInfo.name}</p>
+          <p className='flex items-center gap-2 text-xl font-medium text-gray-700'>{docInfo.specialization}</p>
 
-          <div className='text-sm mt-1 text-gray-600'>
-            <p>{docInfo.specialization}</p>
-          </div>
-
-          <p className='text-gray-500 font-medium mt-4'>
-           Experience: <span className='text-gray-600'>{docInfo.experience} years</span>
-          </p>
-          <p className='text-gray-500 font-medium mt-4'>
-          About: <span className='text-gray-600'>{docInfo.about}</span>
-          </p>
-
-
-          <p className='text-gray-500 font-medium mt-4'>
-            Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span>
-          </p>
-          <p className='text-gray-500 font-medium mt-4'>
-            Service Charge: <span className='text-gray-600'>{currencySymbol}{docInfo.serviceCharge}</span>
-          </p>
+          <p className='text-gray-500 font-medium mt-4'>Experience: <span className='text-gray-600'>{docInfo.experience} years</span></p>
+          <p className='text-gray-500 font-medium mt-4'>About: <span className='text-gray-600'>{docInfo.about}</span></p>
+          <p className='text-gray-500 font-medium mt-4'>Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fee}</span></p>
+          <p className='text-gray-500 font-medium mt-4'>Service Charge: <span className='text-gray-600'>{currencySymbol}{docInfo.serviceCharge}</span></p>
         </div>
       </div>
 
-      <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
-        <p>Booking Slots</p>
-
+      <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'><p>Booking Slots</p>
         {/* Date Selection */}
         <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
-          {docSlots.length > 0 &&
-            docSlots.map((item, index) => (
+          {docSlots.length > 0 && docSlots.map((item, index) => (
               <div
-                onClick={() => {
-                  setSlotIndex(index);
-                  setSlotTime('');
-                }}
-                className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
-                  slotIndex === index ? 'bg-primary text-white' : 'border-gray-200'
-                }`}
-                key={index}
-              >
+                onClick={() => {setSlotIndex(index);setSlotTime('');}}className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                  slotIndex === index ? 'bg-primary text-white' : 'border-gray-200'}`}key={index}>
+
                 <p>{`${item[0]?.datetime.getDate()}, ${item[0]?.datetime.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase()}`}</p>
               </div>
             ))}
@@ -121,40 +99,26 @@ const Appointment = () => {
 
         {/* Time Slots  */}
         <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
-          {docSlots.length > 0 &&
-            docSlots[slotIndex].map((item, index) => (
-              <p
-                onClick={() => setSlotTime(item.time)}
-                className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
-                  item.time === slotTime ? 'bg-primary text-white' : 'text-gray-400 border-gray-300'
-                }`}
-                key={index}
-              >
-                {item.time}
+          {docSlots.length > 0 && docSlots[slotIndex].map((item, index) => (
+              <p onClick={() => setSlotTime(item.time)}className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
+              item.time === slotTime ? 'bg-primary text-white' : 'text-gray-400 border-gray-300'
+              }`}key={index}>{item.time}
               </p>
             ))}
         </div>
 
-            <button
-      onClick={() =>
-        navigate('/patient-details', {
-          state: {
-            doctorId: docId,
-            doctorName: docInfo.name,
-            date: docSlots[slotIndex][0].datetime, // Date of the selected slot
-            slot: slotTime, // Selected time slot
-          },
-        })
-      }
-      disabled={!slotTime}
-      className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
-        slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-      }`}
-    >
-      Book Appointment
-    </button>
+            <button onClick={() =>navigate('/patient-details', {
+            state: {
+              doctorId: docId,
+              doctorName: docInfo.name,
+              date: docSlots[slotIndex][0].datetime, // Date of the selected slot
+              slot: slotTime, // Selected time slot
+            },})
+            }disabled={!slotTime}className={`text-sm font-light px-14 py-3 rounded-full my-6 ${
+            slotTime ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>Book Appointment
+            </button>
 
-      </div>
+        </div>
     </div>
   ) : (
     <p>Loading doctor details...</p>

@@ -8,7 +8,8 @@ export default {
     extend: {
 
       colors:{
-        'primary':"#5f6FFF"
+        'primary':"#D76A03",
+        'matte-orange-border': '#D76A03',
       },
 
       gridTemplateColumns:{

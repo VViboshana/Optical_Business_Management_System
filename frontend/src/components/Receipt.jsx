@@ -36,11 +36,10 @@ const Receipt = () => {
           console.error("Error fetching appointment details:", error);
         }
       };
-
       fetchAppointment();
     }
-  }, [appointment, state?.appointmentId]);
-  if (!appointment) return <div>Loading...</div>; 
+      }, [appointment, state?.appointmentId]);
+      if (!appointment) return <div>Loading...</div>; 
 
   return (
     <div>
@@ -48,14 +47,16 @@ const Receipt = () => {
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
           <div ref={printRef} className="p-8 bg-white border border-gray-200">
             <div className="flex justify-between items-center mb-8">
+
               <div>
                 <h1 className="text-3xl font-bold text-gray-800 mb-2">Appointment Receipt</h1>
                 <p className="text-sm text-gray-600">#{appointment._id}</p>
               </div>
+
               <div className="text-right">
               <h2 className="font-semibold">Clear Vision</h2>
               <p className="text-sm text-gray-600">Avissawella</p>
-            </div>
+              </div>
             
             </div>
 
@@ -90,9 +91,10 @@ const Receipt = () => {
 
           <div className="mt-6 flex justify-center">
             <button onClick={handleDownloadPdf} className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
-              Download PDF
+            Download PDF
             </button>
           </div>
+          
         </div>
       </div>
     </div>

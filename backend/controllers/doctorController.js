@@ -1,15 +1,12 @@
 //linara
 const Doctor = require("../models/doctorModel");
-const cloudinary = require("cloudinary").v2;
-
-
 
 // Add a new doctor
 const addDoctor = async (req, res) => {
   try {
     const { name, specialization, experience, about, fee, serviceCharge, date, slot } = req.body;
         
-        // Create a new doctor document
+        // Create a new doctor 
         const newDoctor = new Doctor({
             name,
             specialization,
@@ -25,7 +22,7 @@ const addDoctor = async (req, res) => {
     
     res.status(200).send({ message: "Doctor added successfully", doctor: savedDoctor });
   } catch (error) {
-    console.error("Error adding doctor", error);  // Log the exact error for debugging
+    console.error("Error adding doctor", error);  // Log the error
     res.status(500).send({ message: "Failed to add doctor", error: error.message });
   }
 };

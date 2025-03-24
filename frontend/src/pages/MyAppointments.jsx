@@ -13,7 +13,7 @@ const MyAppointments = () => {
       try {
         const response = await fetch('http://localhost:5000/api/appointments');
         const data = await response.json();
-        setAppointments(data); // Store the data in state
+        setAppointments(data); 
       } catch (error) {
         console.error('Error fetching appointments:', error);
       }
@@ -26,48 +26,40 @@ const MyAppointments = () => {
     setAppointments(prevAppointments =>
       prevAppointments.map(appointment =>
         appointment._id === appointmentId
-          ? { ...appointment, canceled: true } // Mark as canceled
+          ? { ...appointment, canceled: true } 
           : appointment
       )
     );
   };
 
-
   const handleInvoice = (appointment) => {
     navigate('/receipt', { state: { appointment } });
   };
 
-
   return (
-    <div className="p-6 bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">My Appointments</h2>
+<div >
+<h2 className="text-3xl font-extrabold text-center text-black mb-12 mt-12">My Appointments</h2>
 
       {appointments.length === 0 ? (
         <p className="text-center text-xl text-gray-600">No appointments found.</p>) : (
-        <div className="space-y-6">
+        <div className="space-y-10">
           {appointments.map((appointment) => (
-            <div key={appointment._id} className="border p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+
+            <div key={appointment._id} className="border p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 bg-white">
               <p className="text-lg text-gray-700"><strong>Doctor's Name:</strong> {appointment.doctorName}</p>
               <p className="text-lg text-gray-700"><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
               <p className="text-lg text-gray-700"><strong>Time Slot:</strong> {appointment.slot}</p>
               <p className="text-lg text-gray-700"><strong>Total Fee: </strong>{appointment.totalFee}</p>
 
-              <div className="mt-6 flex justify-center  gap-4">
+              <div className="mt-6 flex justify-end gap-5">
                 {!appointment.canceled ? (
-                  <button
-                    className="bg-red-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-red-600 transform transition-all duration-300 ease-in-out hover:scale-105"
-                    onClick={() => handleCancel(appointment._id)} >Cancel Appointment</button>
-                ) : (
-                  <button className="bg-gray-400 text-white px-6 py-3 rounded-md shadow-md cursor-not-allowed" disabled>Canceled</button>
+                  <button className="bg-red-500 text-white px-5 py-3 rounded-lg transform transition-all duration-300 hover:scale-105"
+                  onClick={() => handleCancel(appointment._id)} >Cancel Appointment</button>) 
+                  :(<button className="bg-gray-400 text-white px-5 py-3 rounded-lg shadow-md cursor-not-allowed" disabled>Canceled</button>
                 )}
-
-                  
-                  <button className="bg-green-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-green-600 transform transition-all duration-300 ease-in-out hover:scale-105"
+                  <button className="bg-green-500 text-white px-5 py-3 rounded-lg transform transition-all duration-300 hover:scale-105"
                   onClick={() => handleInvoice(appointment)}>Download PDF</button> 
               </div>
-
-              
-
             </div>
           ))}
         </div>
