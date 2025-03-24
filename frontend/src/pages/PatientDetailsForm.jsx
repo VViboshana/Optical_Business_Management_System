@@ -56,6 +56,16 @@ const PatientDetailsForm = () => {
         setMessage('Invalid phone number');
         return;
       }
+      if (formData.address.trim() === '') {
+        setMessage('Address cannot be empty');
+        return;
+      }
+
+      if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+        setMessage('Name should only contain letters and spaces');
+        return;
+      }
+
       
       if (formData.paymentMethod === 'Cash') {
         try {
