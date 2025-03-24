@@ -23,7 +23,7 @@ const Login = () => {
       axios.defaults.withCredentials = true;
 
       if (state === "Sign Up") {
-        const { data } = await axios.post(backendUrl + '/api/auth/register', {
+        const { data } = await axios.post(backendUrl + "/api/auth/register", {
           name,
           email,
           password,
@@ -38,7 +38,7 @@ const Login = () => {
           toast.error(data.message);
         }
       } else {
-        const { data } = await axios.post(backendUrl + '/api/auth/login', {
+        const { data } = await axios.post(backendUrl + "/api/auth/login", {
           email,
           password,
         });
@@ -139,19 +139,22 @@ const Login = () => {
           <br />
 
           {state === "Sign Up" && (
-            <div
-              className="md-4 flex items-center gap-3 w-full px-5 py-2.5 
-          rounded-full bg-[#333A5c]"
-            >
+            <div className="md-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5c]">
               <img src={assets.person_icon} alt="" />
-              <input
+              <select
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
-                className="bg-transparent outline-none"
-                type="text"
-                placeholder="Role"
+                className="bg-transparent outline-none w-full"
                 required
-              />
+              >
+                <option value="" disabled>
+                  Select Role
+                </option>
+                <option value="Admin">Admin</option>
+                <option value="Inventory Manager">Inventory Manager</option>
+                <option value="User ">User </option>
+                <option value="Doctor">Doctor</option>
+              </select>
             </div>
           )}
 
