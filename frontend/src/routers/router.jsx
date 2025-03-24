@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import CartPage from "../pages/glasses/CartPage";
 import CheckoutPage from "../pages/glasses/CheckoutPage";
 import OrderPage from "../pages/glasses/OrderPage";
+import Invoice from "../pages/glasses/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: "/checkout",
         element: <CheckoutPage/>
       },
+      {
+        path: "/invoice/:orderId",
+        element: <Invoice/>
+      }
     //   {
     //     path: "/cardPayment",
     //     element: <

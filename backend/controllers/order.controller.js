@@ -25,7 +25,20 @@ const getOrderByEmail = async (req, res) => {
     }
 };
 
+const getOneOrderById = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const order = await Order.findById(orderId);
+        if(!order) return res.status(404).json({message: "Order not found"});
+        res.json(order);
+    } catch (error) {
+        console.error("Error fetching order", error);
+        res.status(500).json({message: "Failed to fetch order"});
+    }
+};
+
 module.exports = {
     createAOrder,
-    getOrderByEmail
+    getOrderByEmail,
+    getOneOrderById
 }

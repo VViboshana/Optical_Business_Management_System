@@ -1,11 +1,16 @@
 import React , { useState }from 'react';
 import { useGetOrderByEmailQuery } from '../../redux/features/order/ordersApi';
- 
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const OrderPage = () => {
     // const[email, setEmail] = useState("");
     // const[submittedEmail, setSubmittedEmail] = useState(null);
     //const { currentUser} = useAuth();
+    const navigate =  useNavigate();
+
     const{data: orders = [], isLoading, isError} = useGetOrderByEmailQuery("test@gmail.com");
     
     if(isLoading) return <div>Loading...</div>;
@@ -29,12 +34,19 @@ const OrderPage = () => {
                             {order.productIds.map((productId) => (
                                 <li key={productId}>{productId}</li>
                             ))}
+                            <button
+                                onClick={() => navigate(`/invoice/${order._id}`)}
+                                className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                                Invoice
+                            </button>
                         </ul>
                     </div>
                 ))
             }
         </div>)
+        
     }
+     
 </div>
   );
 }
