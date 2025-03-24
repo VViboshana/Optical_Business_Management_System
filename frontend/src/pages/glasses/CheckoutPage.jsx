@@ -34,6 +34,18 @@ const CheckoutPage =() => {
         //     totalPrice: totalPrice,
         // }
 
+        if((!/\S+@\S+\.\S+/.test(data.email))){
+            setMessage('Invalid email address');
+            return;
+        }
+
+        if((!/^\d{10}$/.test(data.phone))){
+            setMessage('Invalid phone number');
+            return;
+        }
+
+
+
         const newOrder = {
             name: data.name,
             email: data.email,
@@ -129,7 +141,7 @@ const CheckoutPage =() => {
                                                 <div className="inline-flex items-end">
                                                     <button
                                                         disabled={!isChecked}
-                                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cash On Delivery</button>
+                                                        className="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded">Cash On Delivery</button>
                                                          
                                                 </div>
                                             </div>
@@ -145,10 +157,10 @@ const CheckoutPage =() => {
                                         </div>
                                     </div>
                                 </form>
-                            <div className="md:col-span-5 text-left">
+                            <div className="md:col-span-5 text-right">
                                 <div className="inline-flex items-end">
                                     <button  onClick={() => navigate("/cardPayment")}
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">Card Payment</button>
+                                    className="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded ">Card Payment</button>
                                 </div>
                             </div>
                         </div>
