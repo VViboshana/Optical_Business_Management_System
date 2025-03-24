@@ -21,7 +21,7 @@ const UpdateGlass = () => {
     refetch,
   } = useFetchGlassByIdQuery(id);
   const [updateGlass] = useUpdateGlassMutation();
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const { register, handleSubmit, setValue, reset, formState:{errors} } = useForm();
   useEffect(() => {
     if (glassData) {
       setValue("title", glassData.title);
@@ -72,6 +72,7 @@ const UpdateGlass = () => {
   };
   if (isLoading) return <Loading />;
   if (isError) return <div>Error fetching product data</div>;
+
   return (
     <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Product</h2>
@@ -82,6 +83,11 @@ const UpdateGlass = () => {
           name="title"
           placeholder="Enter product title"
           register={register}
+          validation={{
+            required: "Title is required",
+            minLength: { value: 3, message: "Title must be at least 3 characters" }
+          }}
+          error={errors.title}
         />
 
         <InputField
@@ -90,6 +96,11 @@ const UpdateGlass = () => {
           placeholder="Enter product description"
           type="textarea"
           register={register}
+          validation={{
+            required: "Description is required",
+            minLength: { value: 5, message: "Description must be at least 5 characters" }
+          }}
+          error={errors.description}
         />
 
         <SelectField
@@ -123,6 +134,12 @@ const UpdateGlass = () => {
           type="number"
           placeholder="Old Price"
           register={register}
+          validation={{
+            required: "Old price is required",
+            min: { value: 0, message: "Price must be a positive value" },
+            max: { value: 1000000, message: "New price must be less than 1,000,000" }
+          }}
+          error={errors.oldPrice}
         />
 
         <InputField
@@ -131,6 +148,12 @@ const UpdateGlass = () => {
           type="number"
           placeholder="New Price"
           register={register}
+          validation={{
+            required: "New price is required",
+            min: { value: 0, message: "Price must be a positive value" },
+            max: { value: 1000000, message: "New price must be less than 1,000,000" }
+          }}
+          error={errors.newPrice}
         />
 
         <InputField

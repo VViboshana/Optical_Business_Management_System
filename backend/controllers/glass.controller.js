@@ -21,7 +21,7 @@ const getAllGlasses = async (req, res) => {
   const apiFunctionality = new APIFunctionality(
     Glass.find(),
     req.query
-  ).search();
+  ).search().filter();
   try {
     const glasses = await apiFunctionality.query;
     //const glasses = await Glass.find().sort({createdAt:-1});
