@@ -5,7 +5,7 @@ const Appointment = require("../models/appointmentModel.js");
 const createAppointment = async (req, res) => {
   try {
     const { name, email, phone, address, paymentMethod, doctorId, doctorName, date, slot, totalFee} = req.body;
-    // Create a new appointment
+    
     const appointment = new Appointment({
       name,
       email,

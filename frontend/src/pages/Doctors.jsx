@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Doctors = () => {
   const { specialization } = useParams(); //get current spec
-
   const [filterDoc, setFilterDoc] = useState([]); 
   const navigate = useNavigate();
 

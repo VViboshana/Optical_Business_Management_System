@@ -47,21 +47,13 @@ const PatientDetailsForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //validations 
-      if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
-        setMessage('Name should only contain letters and spaces');
-        return;
-      }
+      //validations 
       if (!/\S+@\S+\.\S+/.test(formData.email)) {
         setMessage('Invalid email address');
         return;
       }
       if (!/^\d{10}$/.test(formData.phone)) {
         setMessage('Invalid phone number');
-        return;
-      }
-      if (formData.address.trim() === '') {
-        setMessage('Address cannot be empty');
         return;
       }
       
@@ -99,7 +91,6 @@ const PatientDetailsForm = () => {
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg grid grid-cols-2 gap-6">
       <div className="space-y-6">
 
-        {/* Patient section */}
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">Patient Details</h2>
         {message && <p className="text-center text-green-500">{message}</p>}
 
@@ -166,8 +157,7 @@ const PatientDetailsForm = () => {
           </button>
         </form>
       </div>
-
-      {/* Total fee section */}
+      
       <div className="bg-gray-100 p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Total Fee</h2>
         <div className="flex justify-between text-lg font-medium text-gray-700"><span>Doctor Fee:</span><span>${doctorFee}</span></div>
