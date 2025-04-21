@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Doctors = () => {
-  const { specialization } = useParams(); //get current spec
+  const { specialization } = useParams(); 
   const [filterDoc, setFilterDoc] = useState([]); 
   const navigate = useNavigate();
 

@@ -28,42 +28,42 @@ const Appointment = () => {
     fetchDocInfo();
   }, [docId]);
 
+
   const getAvailableSlots = () => {
     let today = new Date();
     let slots = [];
-
+  
     for (let i = 0; i < 7; i++) {
       let currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
-
+  
       let startTime = new Date(currentDate);
-      startTime.setHours(7, 0, 0, 0);
+      startTime.setHours(7, 0, 0, 0); // Start at 7 AM
       
       let endTime = new Date(currentDate);
-      endTime.setHours(17, 0, 0, 0);
-
+      endTime.setHours(18, 0, 0, 0); // End at 5 PM
+  
       let timeSlots = [];
       while (startTime < endTime) {
         let formattedTime = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
+  
         timeSlots.push({
           datetime: new Date(startTime),
           time: formattedTime
         });
-
-        startTime.setMinutes(startTime.getMinutes() + 30);
+        startTime.setHours(startTime.getHours() + 1); // Increment by one hour
       }
-
       if (i === 0) {
         const currentDateTime = new Date();
         timeSlots = timeSlots.filter(slot => slot.datetime > currentDateTime);
       }
-
       slots.push(timeSlots);
     }
     setDocSlots(slots);
   };
+  
 
+  
   useEffect(() => {
     if (docInfo) {
       getAvailableSlots();

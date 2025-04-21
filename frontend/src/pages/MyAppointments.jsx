@@ -22,15 +22,30 @@ const MyAppointments = () => {
     fetchAppointments();
   }, []); 
 
-  const handleCancel = (appointmentId) => {
-    setAppointments(prevAppointments =>
-      prevAppointments.map(appointment =>
-        appointment._id === appointmentId
-          ? { ...appointment, canceled: true } 
-          : appointment
-      )
-    );
+  const handleCancel = async (appointmentId) => {
+    const confirmCancel = window.confirm("Are you sure you want to cancel this appointment?");
+    if (!confirmCancel) return;
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        alert('Appointment cancelled successfully.');
+  
+        setAppointments(prevAppointments =>
+          prevAppointments.filter(appointment => appointment._id !== appointmentId)
+        );
+      } else {
+        alert('Failed to cancel appointment.');
+      }
+    } catch (error) {
+      console.error('Error canceling appointment:', error);
+      alert('Something went wrong. Please try again.');
+    }
   };
+  
 
   const handleInvoice = (appointment) => {
     navigate('/receipt', { state: { appointment } });

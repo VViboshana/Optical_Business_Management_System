@@ -12,8 +12,11 @@ import Receipt from './components/Receipt'
 const App = () => {
 
   return (
+
     <div className='mx-4 sm:mx-[10%]'>
+      
       <Navbar />
+
       <Routes>
         <Route path = '/' element={<Home />} />
         <Route path = '/doctors' element={<Doctors />} />
@@ -23,6 +26,7 @@ const App = () => {
         <Route path = '/appointment/:docId' element={<Appointment />} />
         <Route path = '/receipt' element={<Receipt />} /> 
       </Routes>
+
     </div>
   )
 }

@@ -56,9 +56,12 @@ const getAppointmentById = async (req, res) => {
   }
 };
 
+
 //cancel an appointment
 const CancelAppointment = async (req, res) => {
   try {
+    console.log("DELETE request for appointment ID:", req.params.id); // ✅ Add this
+
     const canceledAppointment = await Appointment.findByIdAndDelete(req.params.id);
 
     if (!canceledAppointment) {
@@ -71,6 +74,7 @@ const CancelAppointment = async (req, res) => {
     res.status(500).send({ message: 'Error deleting appointment', error: error.message });
   }
 };
+
 
 module.exports = {createAppointment,getAllAppointments,getAppointmentById,CancelAppointment};
 

@@ -37,24 +37,7 @@ const addDoctor = async (req, res) => {
     }
   };
   
-  // Update doctor data
-  const updateDoctor = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const updatedDoctor = await Doctor.findByIdAndUpdate(id, req.body, { new: true });
-      if (!updatedDoctor) {
-        return res.status(404).send({ message: "Doctor not found!" });
-      }
-      res.status(200).send({
-        message: "Doctor updated successfully",
-        doctor: updatedDoctor
-      });
-    } catch (error) {
-      console.error("Error updating doctor", error);
-      res.status(500).send({ message: "Failed to update doctor" });
-    }
-  };
-
+  
   // Get doctor by ID
 const getDoctorById = async (req, res) => {
   try {
@@ -72,5 +55,5 @@ const getDoctorById = async (req, res) => {
   }
 };
   
-  module.exports = {addDoctor,getAllDoctors,updateDoctor,getDoctorById};
+  module.exports = {addDoctor,getAllDoctors,getDoctorById};
   
