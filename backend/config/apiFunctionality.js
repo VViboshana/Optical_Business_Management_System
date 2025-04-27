@@ -24,4 +24,5 @@ class APIFunctionality {
   }
 }
 
+
 module.exports = APIFunctionality;

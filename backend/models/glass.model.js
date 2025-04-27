@@ -34,6 +34,7 @@ const glassSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    stockCount: { type: Number, required: true, default: 1 },
   },
   {
     timestamps: true,

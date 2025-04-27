@@ -21,7 +21,14 @@ const UpdateGlass = () => {
     refetch,
   } = useFetchGlassByIdQuery(id);
   const [updateGlass] = useUpdateGlassMutation();
-  const { register, handleSubmit, setValue, reset, formState:{errors} } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   useEffect(() => {
     if (glassData) {
       setValue("title", glassData.title);
@@ -31,6 +38,7 @@ const UpdateGlass = () => {
       setValue("oldPrice", glassData.oldPrice);
       setValue("newPrice", glassData.newPrice);
       setValue("coverImage", glassData.coverImage);
+      setValue("stockCount", glassData.stockCount); // 🆕 Added stock value
     }
   }, [glassData, setValue]);
 
@@ -43,7 +51,9 @@ const UpdateGlass = () => {
       oldPrice: Number(data.oldPrice),
       newPrice: Number(data.newPrice),
       coverImage: data.coverImage || glassData.coverImage,
+      stock: Number(data.stockCount), // 🆕 Include stock in payload
     };
+
     try {
       await axios.put(
         `${getBaseURL()}/api/glasses/edit/${id}`,
@@ -70,6 +80,7 @@ const UpdateGlass = () => {
       alert("Failed to update product.");
     }
   };
+
   if (isLoading) return <Loading />;
   if (isError) return <div>Error fetching product data</div>;
 
@@ -85,7 +96,10 @@ const UpdateGlass = () => {
           register={register}
           validation={{
             required: "Title is required",
-            minLength: { value: 3, message: "Title must be at least 3 characters" }
+            minLength: {
+              value: 3,
+              message: "Title must be at least 3 characters",
+            },
           }}
           error={errors.title}
         />
@@ -98,7 +112,10 @@ const UpdateGlass = () => {
           register={register}
           validation={{
             required: "Description is required",
-            minLength: { value: 5, message: "Description must be at least 5 characters" }
+            minLength: {
+              value: 5,
+              message: "Description must be at least 5 characters",
+            },
           }}
           error={errors.description}
         />
@@ -115,6 +132,7 @@ const UpdateGlass = () => {
           ]}
           register={register}
         />
+
         <div className="mb-4">
           <label className="inline-flex items-center">
             <input
@@ -137,7 +155,10 @@ const UpdateGlass = () => {
           validation={{
             required: "Old price is required",
             min: { value: 0, message: "Price must be a positive value" },
-            max: { value: 1000000, message: "New price must be less than 1,000,000" }
+            max: {
+              value: 1000000,
+              message: "Old price must be less than 1,000,000",
+            },
           }}
           error={errors.oldPrice}
         />
@@ -151,7 +172,10 @@ const UpdateGlass = () => {
           validation={{
             required: "New price is required",
             min: { value: 0, message: "Price must be a positive value" },
-            max: { value: 1000000, message: "New price must be less than 1,000,000" }
+            max: {
+              value: 1000000,
+              message: "New price must be less than 1,000,000",
+            },
           }}
           error={errors.newPrice}
         />
@@ -162,6 +186,27 @@ const UpdateGlass = () => {
           type="text"
           placeholder="Cover Image URL"
           register={register}
+        />
+
+        {/* 🆕 Stock input field */}
+        <InputField
+          label="Stock"
+          name="stockCount"
+          type="number"
+          placeholder="Enter available stock quantity"
+          register={register}
+          validation={{
+            required: "Stock is required",
+            min: {
+              value: 0,
+              message: "Stock must be a non-negative number",
+            },
+            max: {
+              value: 100000,
+              message: "Stock must be realistic",
+            },
+          }}
+          error={errors.stockCount}
         />
 
         <button
