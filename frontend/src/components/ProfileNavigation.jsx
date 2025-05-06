@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileNavigation = ({ setActiveTab }) => {
+  const navigate = useNavigate();
+
+  const handleAppointmentHistory = () => {
+    navigate('/my-appointments');
+  };
+
   return (
     <div className="mt-4">
       <button
@@ -10,7 +17,7 @@ const ProfileNavigation = ({ setActiveTab }) => {
         Profile
       </button>
       <button
-        onClick={() => setActiveTab('appointments')}
+        onClick={handleAppointmentHistory}
         className="block w-full text-left py-2 px-4 hover:bg-gray-200"
       >
         Appointment History
@@ -26,12 +33,6 @@ const ProfileNavigation = ({ setActiveTab }) => {
         className="block w-full text-left py-2 px-4 hover:bg-gray-200"
       >
         Inquiries
-      </button>
-      <button
-        onClick={() => setActiveTab('support')}
-        className="block w-full text-left py-2 px-4 hover:bg-gray-200"
-      >
-        Support
       </button>
     </div>
   );

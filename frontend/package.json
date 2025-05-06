@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.8.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -19,7 +20,11 @@
     "react-router-dom": "^7.3.0",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.1",
-    "swiper": "^11.2.6"
+    "sweetalert2": "^11.19.1",
+    "swiper": "^11.2.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
+    "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

@@ -62,7 +62,7 @@ const NavBar = () => {
           About Us
         </button>
         <button
-          onClick={() => navigate('/appointments')}
+          onClick={() => navigate('/doctors')}
           className="text-gray-800 hover:text-gray-600 transition-colors"
         >
           Appointments
@@ -76,7 +76,7 @@ const NavBar = () => {
         </button>
 
         <button
-          onClick={() => navigate('/products')}
+          onClick={() => navigate('/glasses')}
           className="text-gray-800 hover:text-gray-600 transition-colors"
         >
           Products

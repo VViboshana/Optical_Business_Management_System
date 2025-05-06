@@ -14,49 +14,132 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const isAdminEmail = (email) => {
+    const adminEmailPattern = /^Admin\d{3}@clean\.com$/;
+    return adminEmailPattern.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return "Password must be at least 8 characters long";
+    }
+    if (!hasUpperCase) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!hasLowerCase) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!hasNumbers) {
+      return "Password must contain at least one number";
+    }
+    if (!hasSpecialChar) {
+      return "Password must contain at least one special character";
+    }
+    return "";
+  };
 
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
 
+      if (state === "Sign Up") {
+        const passwordValidationError = validatePassword(password);
+        if (passwordValidationError) {
+          setPasswordError(passwordValidationError);
+          toast.error(passwordValidationError);
+          return;
+        }
+      }
+
       axios.defaults.withCredentials = true;
 
       if (state === "Sign Up") {
-        const { data } = await axios.post(backendUrl + "/api/auth/register", {
-          name,
-          email,
-          password,
-          role,
-        });
-
-        if (data.success) {
-          setIsLoggedin(true);
-          getUserData();
-          navigate("/");
-        } else {
-          toast.error(data.message);
-        }
+        await toast.promise(
+          axios.post(backendUrl + "/api/auth/register", {
+            name,
+            email,
+            password,
+          }),
+          {
+            pending: 'Creating your account...',
+            success: {
+              render({ data }) {
+                setTimeout(() => {
+                  setState("Login");
+                  setName("");
+                  setEmail("");
+                  setPassword("");
+                  setPasswordError("");
+                }, 2000);
+                return 'Registration successful! Redirecting to login...';
+              },
+              icon: '✅',
+            },
+            error: {
+              render({ data }) {
+                return data.response?.data?.message || 'Registration failed!';
+              },
+              icon: '❌',
+            }
+          }
+        );
       } else {
-        const { data } = await axios.post(backendUrl + "/api/auth/login", {
-          email,
-          password,
-        });
+        try {
+          const response = await axios.post(backendUrl + "/api/auth/login", {
+            email,
+            password,
+          });
 
-        if (data.success) {
-          setIsLoggedin(true);
-          getUserData();
-          navigate("/Home");
-        } else {
-          toast.error(error.message);
+          if (response.data.success) {
+            toast.success('Login successful! Redirecting...', {
+              icon: '✅',
+            });
+            sessionStorage.setItem("userEmail", email);
+            setTimeout(() => {
+              setIsLoggedin(true);
+              getUserData();
+              if (isAdminEmail(email)) {
+                navigate("/dashboard");
+              } else {
+                navigate("/Home");
+              }
+            }, 2000);
+          } else {
+            toast.error(response.data.message || 'Login failed!', {
+              icon: '❌',
+            });
+            setPassword("");
+          }
+        } catch (error) {
+          if (error.response?.data?.message) {
+            toast.error(error.response.data.message, {
+              icon: '❌',
+            });
+          } else {
+            toast.error('Login failed! Please check your credentials.', {
+              icon: '❌',
+            });
+          }
+          setPassword("");
         }
       }
     } catch (error) {
-      // Use error.response.data.message if the server sends a message
-      const errorMessage = error.response?.data?.message || error.message;
-      toast.error(errorMessage);
+      console.error('Error:', error);
+      toast.error('An unexpected error occurred. Please try again.', {
+        icon: '❌',
+      });
+      setPassword("");
     }
   };
+
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen px-6
@@ -127,7 +210,12 @@ const Login = () => {
           >
             <img src={assets.lock_icon} alt="" />
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (state === "Sign Up") {
+                  setPasswordError(validatePassword(e.target.value));
+                }
+              }}
               value={password}
               className="bg-transparent outline-none"
               type="password"
@@ -136,27 +224,11 @@ const Login = () => {
             />
           </div>
 
-          <br />
-
-          {state === "Sign Up" && (
-            <div className="md-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5c]">
-              <img src={assets.person_icon} alt="" />
-              <select
-                onChange={(e) => setRole(e.target.value)}
-                value={role}
-                className="bg-transparent outline-none w-full"
-                required
-              >
-                <option value="" disabled>
-                  Select Role
-                </option>
-                <option value="Admin">Admin</option>
-                <option value="Inventory Manager">Inventory Manager</option>
-                <option value="User ">User </option>
-                <option value="Doctor">Doctor</option>
-              </select>
-            </div>
+          {state === "Sign Up" && passwordError && (
+            <p className="text-red-500 text-xs mt-1 ml-2">{passwordError}</p>
           )}
+
+          <br />
 
           <p
             onClick={() => navigate("/reset-password")}
@@ -176,7 +248,10 @@ const Login = () => {
           <p className="text-gray-400 text-center text-xs mt-4">
             Already have an account?{" "}
             <span
-              onClick={() => setState("Login")}
+              onClick={() => {
+                setState("Login");
+                setPasswordError("");
+              }}
               className="text-blue-400 cursor-pointer underline"
             >
               Login here
@@ -186,7 +261,10 @@ const Login = () => {
           <p className="text-gray-400 text-center text-xs mt-4">
             Don't have an account?{" "}
             <span
-              onClick={() => setState("Sign Up")}
+              onClick={() => {
+                setState("Sign Up");
+                setPasswordError("");
+              }}
               className="text-blue-400 cursor-pointer underline"
             >
               SignUp

@@ -2,13 +2,14 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
+import { verifyToken } from '../middleware/authMiddleware.js';
 
 // User signup
 export const register = async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     // Validation: Check if all required fields are provided
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password) {
         return res.json({ success: false, message: 'Missing Details' });
     }
 
@@ -22,7 +23,7 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = new userModel({ name, email, password: hashedPassword, role });
+        const user = new userModel({ name, email, password: hashedPassword });
         await user.save();
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -47,13 +48,10 @@ export const register = async (req, res) => {
             console.log('Email sent successfully');
         } catch (emailError) {
             console.error('Error sending email:', emailError);
-            return res.json({ success: false, message: 'User registered, but failed to send email.' });
         }
 
-        return res.json({ success: true, message: 'User registered successfully' });
-
+        return res.json({ success: true });
     } catch (error) {
-        console.error('Registration error:', error);
         return res.json({ success: false, message: error.message });
     }
 };
@@ -271,3 +269,54 @@ export const resetPassword = async (req, res) => {
         return res.json({ success: false, message: error.message });
     }
 };
+
+// Example of a protected route that requires a specific role
+export const adminDashboard = [verifyToken, (req, res) => {
+    // req.user now contains the user's ID and role (from verifyToken middleware)
+    if (req.user.role === 'Admin') {
+        return res.json({ success: true, message: 'Welcome to the Admin Dashboard!' });
+    } else {
+        return res.status(403).json({ success: false, message: 'Unauthorized: Admin access required.' });
+    }
+}];
+
+// Example of a protected route that requires a specific role and filters by email (or domain)
+export const inventoryData = [verifyToken, async (req, res) => {
+    if (req.user.role === 'Inventory Manager') {
+        // Example: Only allow Inventory Managers with emails ending in '@inventory.com'
+        if (req.user.email.endsWith('@inventory.com')) {
+            // Fetch inventory data relevant to this manager (you'll need your own logic here)
+            const inventory = await fetchRelevantInventory(req.user.email);
+            return res.json({ success: true, data: inventory });
+        } else {
+            return res.status(403).json({ success: false, message: 'Unauthorized: Inventory access restricted to specific email domains.' });
+        }
+    } else {
+        return res.status(403).json({ success: false, message: 'Unauthorized: Inventory Manager access required.' });
+    }
+}];
+
+// Helper function (you'll need to implement this based on your data model)
+async function fetchRelevantInventory(email) {
+    // Logic to fetch inventory data based on the inventory manager's email
+    // This could involve querying a different model and filtering based on some relationship
+    return [];
+}
+
+// Example of a route accessible to Doctors
+export const doctorPortal = [verifyToken, (req, res) => {
+    if (req.user.role === 'Doctor') {
+        return res.json({ success: true, message: 'Welcome to the Doctor Portal!' });
+    } else {
+        return res.status(403).json({ success: false, message: 'Unauthorized: Doctor access required.' });
+    }
+}];
+
+// Example of a route accessible to regular Users
+export const userProfile = [verifyToken, (req, res) => {
+    if (req.user.role === 'User ') { // Note the space in your role
+        return res.json({ success: true, message: 'Welcome to your Profile!' });
+    } else {
+        return res.status(403).json({ success: false, message: 'Unauthorized: User access required.' });
+    }
+}];

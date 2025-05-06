@@ -19,7 +19,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
     "nodemailer": "^6.10.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "express-validator": "^7.2.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "puppeteer": "^24.4.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.9",
