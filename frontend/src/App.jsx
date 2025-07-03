@@ -5,6 +5,8 @@ import Login from './pages/Login'
 import EmailVerify from './pages/EmailVerify'
 import ResetPassword from './pages/ResetPassword'
 import Home from './pages/Home'
+import AboutUs from './pages/AboutUs.jsx'
+import ContactUs from './pages/ContactUs.jsx'
 import UserProfile from './pages/UserProfile'
 import Dashboard from './pages/Dashboard'
 import AddDoctor from './pages/AddDoctor'
@@ -71,6 +73,8 @@ const App = () => {
         <Route path='/email-verify' element={<EmailVerify/>}/>
         <Route path='/reset-password' element={<ResetPassword/>}/>
         <Route path='/Home' element={<Home/>}/>
+        <Route path='/about' element={<AboutUs/>}/>
+        <Route path='/contactUs' element={<ContactUs/>}/>
         <Route path='/profile' element={<UserProfile/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/add-doctor' element={<AddDoctor/>}/>
